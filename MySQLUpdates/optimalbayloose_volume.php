@@ -20,15 +20,15 @@ $querydelete->execute();
 //Assign optimal bay for L06 outside of level loop
 
 $baycube_L06 = $conn1->prepare("SELECT 
-                                                    DIMGROUP AS LMGRD5,
-                                                    WALKFEET as WALKFEET,
+                                                    slotmaster_dimgroup AS LMGRD5,
+                                                    slotmaster_distance as WALKFEET,
                                                     COUNT(*) AS GRIDCOUNT
                                                 FROM
-                                                    hep.bay_location
+                                                    hep.slotmaster
                                                 WHERE
-                                                    TIER = 'L06'
-                                                GROUP BY DIMGROUP , WALKFEET
-                                                ORDER BY VOLUME, WALKFEET");
+                                                    slotmaster_tier = 'L06'
+                                                GROUP BY slotmaster_dimgroup , slotmaster_distance
+                                                ORDER BY slotmaster_usecube, slotmaster_distance");
 $baycube_L06->execute();
 $baycubearray_L06 = $baycube_L06->fetchAll(pdo::FETCH_ASSOC);
 
@@ -52,15 +52,15 @@ $ppc_L06 = $conn1->prepare("SELECT
 A.AVG_DAILY_PICK AS OPT_DAILYPICKS,
     SUGGESTED_NEWLOCVOL AS OPT_NEWGRIDVOL,
     (A.AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) * 1000 AS OPT_PPCCALC,
-    WALKFEET AS CURWALKFEET,
+    slotmaster_distance AS CURWALKFEET,
     HOLDTIER,
     HOLDGRID,
     HOLDLOCATION,
-    WALKBAY AS CURR_BAY
+    slotmaster_walkbay AS CURR_BAY
 FROM
     hep.my_npfmvc A
         JOIN
-    hep.bay_location L ON LOCATION = CUR_LOCATION
+    hep.slotmaster L ON slotmaster_loc = CUR_LOCATION
         JOIN
     hep.npfcpcsettings X ON X.CPCITEM = A.ITEM_NUMBER
         LEFT JOIN
@@ -157,41 +157,41 @@ foreach ($level_array as $level) {
 
 
     $baycube_L04 = $conn1->prepare("SELECT 
-                                                                            WALKFEET,
-                                                                            SUM(VOLUME) * 1000000 AS TIER_VOL
+                                                                            slotmaster_distance as WALKFEET,
+                                                                            SUM(slotmaster_usecube) * 1000000 AS TIER_VOL
                                                                         FROM
-                                                                            hep.bay_location
+                                                                            hep.slotmaster
                                                                         WHERE
-                                                                            WHSE = 'HEP' AND LEVEL = '$level' and TIER = 'L04'
-                                                                        GROUP BY WALKFEET");
+                                                                            slotmaster_branch = 'HEP' AND slotmaster_level = '$level' and slotmaster_tier = 'L04'
+                                                                        GROUP BY slotmaster_distance");
     $baycube_L04->execute();
     $baycubearray_L04 = $baycube_L04->fetchAll(pdo::FETCH_ASSOC);
 
     $baycube_L02 = $conn1->prepare("SELECT 
-                                                    DIMGROUP AS LMGRD5,
-                                                    WALKFEET as WALKFEET,
-                                                    LOCATION,
+                                                    slotmaster_dimgroup AS LMGRD5,
+                                                    slotmaster_distance as WALKFEET,
+                                                    slotmaster_loc as LOCATION,
                                                     COUNT(*) AS GRIDCOUNT
                                                 FROM
-                                                    hep.bay_location
+                                                    hep.slotmaster
                                                 WHERE
-                                                    LEVEL = '$level' AND TIER = 'L02'
-                                                GROUP BY DIMGROUP , WALKFEET, LOCATION
-                                                ORDER BY VOLUME, WALKFEET, LOCATION");
+                                                    slotmaster_level = '$level' AND slotmaster_tier = 'L02'
+                                                GROUP BY slotmaster_dimgroup , slotmaster_distance, slotmaster_loc
+                                                ORDER BY slotmaster_usecube, slotmaster_distance, slotmaster_loc");
     $baycube_L02->execute();
     $baycubearray_L02 = $baycube_L02->fetchAll(pdo::FETCH_ASSOC);
 
     $baycube_L01 = $conn1->prepare("SELECT 
-                                                    DIMGROUP AS LMGRD5,
-                                                    WALKFEET as WALKFEET,
-                                                    LOCATION,
+                                                    slotmaster_dimgroup AS LMGRD5,
+                                                    slotmaster_distance as WALKFEET,
+                                                    slotmaster_loc as LOCATION,
                                                     COUNT(*) AS GRIDCOUNT
                                                 FROM
-                                                    hep.bay_location
+                                                    hep.slotmaster
                                                 WHERE
-                                                    LEVEL = '$level' AND TIER = 'L01'
-                                                GROUP BY DIMGROUP , WALKFEET, LOCATION
-                                                ORDER BY VOLUME, WALKFEET, LOCATION");
+                                                    slotmaster_level = '$level' AND slotmaster_tier = 'L01'
+                                                GROUP BY slotmaster_dimgroup , slotmaster_distance, slotmaster_loc
+                                                ORDER BY slotmaster_usecube, slotmaster_distance, slotmaster_loc");
     $baycube_L01->execute();
     $baycubearray_L01 = $baycube_L01->fetchAll(pdo::FETCH_ASSOC);
 
@@ -231,21 +231,21 @@ foreach ($level_array as $level) {
     A.AVG_DAILY_PICK as OPT_DAILYPICKS,
     SUGGESTED_NEWLOCVOL * 1000000 AS OPT_NEWGRIDVOL,
     (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) * 1000 AS OPT_PPCCALC,
-    WALKFEET AS CURWALKFEET,
+    slotmaster_distance AS CURWALKFEET,
     HOLDTIER,
     HOLDGRID,
     HOLDLOCATION,
-    WALKBAY AS CURR_BAY
+    slotmaster_walkbay AS CURR_BAY
 FROM
     hep.my_npfmvc A
         JOIN
-    hep.bay_location L ON LOCATION = CUR_LOCATION
+    hep.slotmaster L ON slotmaster_loc = CUR_LOCATION
         JOIN
     hep.npfcpcsettings X ON X.CPCITEM = A.ITEM_NUMBER
         LEFT JOIN
     hep.item_settings S ON S.ITEM = A.ITEM_NUMBER
 WHERE
-    SUGGESTED_TIER = 'L04' and LEVEL = '$level'
+    SUGGESTED_TIER = 'L04' and slotmaster_level = '$level'
 ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL ASC");
     $ppc_L04->execute();
     $ppcarray_L04 = $ppc_L04->fetchAll(pdo::FETCH_ASSOC);
@@ -271,21 +271,21 @@ ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL A
     A.AVG_DAILY_PICK AS OPT_DAILYPICKS,
     SUGGESTED_NEWLOCVOL AS OPT_NEWGRIDVOL,
     (A.AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) * 1000 AS OPT_PPCCALC,
-    WALKFEET AS CURWALKFEET,
+    slotmaster_distance AS CURWALKFEET,
     HOLDTIER,
     HOLDGRID,
     HOLDLOCATION,
-    WALKBAY AS CURR_BAY
+    slotmaster_walkbay AS CURR_BAY
 FROM
     hep.my_npfmvc A
         JOIN
-    hep.bay_location L ON LOCATION = CUR_LOCATION
+    hep.slotmaster L ON slotmaster_loc = CUR_LOCATION
         JOIN
     hep.npfcpcsettings X ON X.CPCITEM = A.ITEM_NUMBER
         LEFT JOIN
     hep.item_settings S ON S.ITEM = A.ITEM_NUMBER
 WHERE
-    SUGGESTED_TIER = 'L01' and LEVEL = '$level'
+    SUGGESTED_TIER = 'L01' and slotmaster_level = '$level'
 ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL ASC");
     $ppcL01->execute();
     $ppcarray_L01 = $ppcL01->fetchAll(pdo::FETCH_ASSOC);
@@ -311,21 +311,21 @@ ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL A
     AVG_DAILY_PICK AS OPT_DAILYPICKS,
     SUGGESTED_NEWLOCVOL AS OPT_NEWGRIDVOL,
     (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) * 1000 AS OPT_PPCCALC,
-    WALKFEET AS CURWALKFEET,
+    slotmaster_distance AS CURWALKFEET,
     HOLDTIER,
     HOLDGRID,
     HOLDLOCATION,
-    WALKBAY AS CURR_BAY
+    slotmaster_walkbay AS CURR_BAY
 FROM
     hep.my_npfmvc A
         JOIN
-    hep.bay_location L ON LOCATION = CUR_LOCATION
+    hep.slotmaster L ON slotmaster_loc = CUR_LOCATION
         JOIN
     hep.npfcpcsettings X ON X.CPCITEM = A.ITEM_NUMBER
         LEFT JOIN
     hep.item_settings S ON S.ITEM = A.ITEM_NUMBER
 WHERE
-    SUGGESTED_TIER = 'L02' and LEVEL = '$level'
+    SUGGESTED_TIER = 'L02' and slotmaster_level = '$level'
 ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL ASC");
     $ppcL02->execute();
     $ppcarray_L02 = $ppcL02->fetchAll(pdo::FETCH_ASSOC);
@@ -570,9 +570,9 @@ ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL A
 $sql_hist = "INSERT IGNORE INTO hep.optimalbay_hist(optbayhist_whse, optbayhist_tier, optbayhist_date, optbayhist_bay, optbayhist_pick, optbayhist_cost, optbayhist_count)
         SELECT 
     'HEP',
-    L.TIER,
+    L.slotmaster_tier,
     CURDATE(),
-    L.BAY AS BAY,
+    L.slotmaster_bay AS BAY,
     CASE
         WHEN SUM(AVG_DAILY_PICK) IS NULL THEN 0
         ELSE SUM(AVG_DAILY_PICK)
@@ -580,11 +580,11 @@ $sql_hist = "INSERT IGNORE INTO hep.optimalbay_hist(optbayhist_whse, optbayhist_
     AVG(ABS(1)),
     COUNT(*)
 FROM
-    hep.bay_location L
+    hep.slotmaster L
         LEFT JOIN
-    hep.item_location ON loc_location = LOCATION
+    hep.item_location ON loc_location = slotmaster_loc
         LEFT JOIN
     hep.nptsld ON ITEM = loc_item
-GROUP BY 'HEP' , L.TIER , CURDATE() , L.BAY";
+GROUP BY 'HEP' , L.slotmaster_tier , CURDATE() , L.slotmaster_bay";
 $query_hist = $conn1->prepare($sql_hist);
 $query_hist->execute();

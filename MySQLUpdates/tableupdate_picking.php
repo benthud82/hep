@@ -2,7 +2,13 @@
 
 include_once '../connection/connection_details.php';
 ini_set('memory_limit', '-1'); //max size 32m
-$filename = 'picking_to_HHP_20180509.txt';  //need to change this to look for any date
+ini_set('max_execution_time', 99999);
+$fileglob = glob('../../ftproot/ftpde/picking_to*.txt');  //glob wildcard searches for any file
+
+if(count($fileglob) > 0){
+    $filename = $fileglob[0];
+}
+
 $result = array();
 $fp = fopen($filename, 'r');
 if (($headers = fgetcsv($fp, 0, "\t")) !== FALSE) {
@@ -33,14 +39,14 @@ do {
     $data = array();
     $values = array();
     while ($counter <= $maxrange) { //split into 5,000 lines segments to insert into merge table //sub loop through items by whse to pull in CPC settings by whse/item
-        $WHSE = $result[$counter]['LagerNr'];
-        $ITEM = intval($result[$counter]['MatNr']);
-        $INVOICE = intval($result[$counter]['Nach_LgPla']);
-        $PKGU = intval($result[$counter]['Gebinde_Menge']);
-        $PKTYPE = intval($result[$counter]['Von_LgTyp']);
-        $LOCATION = $result[$counter]['Von_LgPla'];
-        $UNITS = str_replace(',', '.', intval($result[$counter]['Nach_IstMg']));
-        $PICKDATE = date('Y-m-d', strtotime($result[$counter]['Buch_Dat']));
+        $WHSE = $result[$counter]['Warehouse'];
+        $ITEM = intval($result[$counter]['Material']);
+        $INVOICE = intval($result[$counter]['StoBin_dest']);
+        $PKGU = intval($result[$counter]['Package_quant']);
+        $PKTYPE = intval($result[$counter]['StoType_from']);
+        $LOCATION = $result[$counter]['StoBin_from'];
+        $UNITS = str_replace(',', '.', intval($result[$counter]['Quantity_put']));
+        $PICKDATE = date('Y-m-d', strtotime($result[$counter]['Post_date']));
 
 
         $data[] = "($idsales, '$WHSE',  $ITEM, $INVOICE, $PKGU, $PKTYPE, '$LOCATION', $UNITS, '$PICKDATE')";
@@ -58,3 +64,7 @@ do {
     $query->execute();
     $maxrange += 10000;
 } while ($counter <= $rowcount); //end of item by whse loop
+
+foreach ($fileglob as $deletefile) {
+    unlink(realpath($deletefile));
+}

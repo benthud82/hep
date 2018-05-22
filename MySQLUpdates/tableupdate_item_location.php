@@ -2,7 +2,14 @@
 
 include_once '../connection/connection_details.php';
 ini_set('memory_limit', '-1'); //max size 32m
-$filename = 'slot_master_HHP_20180509.txt';  //need to change this to look for any date
+ini_set('max_execution_time', 99999);
+
+$fileglob = glob('../../ftproot/ftpde/slot_master*.txt');  //glob wildcard searches for any file
+
+if(count($fileglob) > 0){
+    $filename = $fileglob[0];
+}
+
 $result = array();
 $fp = fopen($filename, 'r');
 if (($headers = fgetcsv($fp, 0, "\t")) !== FALSE) {
@@ -37,12 +44,12 @@ do {
     $data = array();
     $values = array();
     while ($counter <= $maxrange) { //split into 5,000 lines segments to insert into merge table //sub loop through items by whse to pull in CPC settings by whse/item
-        $loc_branch = $result[$counter]['LagerNr'];
-        $loc_location = $result[$counter]['Lagerplatz'];
+        $loc_branch = $result[$counter]['Warehouse'];
+        $loc_location = $result[$counter]['StorageBin'];
         $loc_level = substr($loc_location, 0,1);
         $loc_item = intval($result[$counter]['Material']);
-        $loc_truefit = str_replace(',', '.', intval($result[$counter]['Platz_Mg_max']));
-        $loc_slotqty = str_replace(',', '.', intval($result[$counter]['Nachschub_Mg']));
+        $loc_truefit = str_replace(',', '.', intval($result[$counter]['BinQuantityMax']));
+        $loc_slotqty = str_replace(',', '.', intval($result[$counter]['ReplenishQuantity']));
         $loc_minqty = intval($loc_slotqty * .25);
         $loc_itemdesc = 'N/A';
 
@@ -61,3 +68,7 @@ do {
     $query->execute();
     $maxrange += 10000;
 } while ($counter <= $rowcount); //end of item by whse loop
+
+foreach ($fileglob as $deletefile) {
+    unlink(realpath($deletefile));
+}

@@ -11,19 +11,19 @@ $var_whse = $whssqlarray[0]['slottingDB_users_PRIMDC'];
 
 $lo4sql = $conn1->prepare("SELECT 
                                                             SUM(CASE
-                                                                WHEN LEVEL = 'A' AND TIER = 'L04' THEN VOLUME
+                                                                WHEN slotmaster_level = 'A' AND slotmaster_tier = 'L04' THEN slotmaster_usecube
                                                                 ELSE 0
                                                             END) AS LEVELAVOL,
                                                             SUM(CASE
-                                                                WHEN LEVEL = 'B' AND TIER = 'L04' THEN VOLUME
+                                                                WHEN slotmaster_level = 'B' AND slotmaster_tier = 'L04' THEN slotmaster_usecube
                                                                 ELSE 0
                                                             END) AS LEVELBVOL,
                                                             SUM(CASE
-                                                                WHEN LEVEL = 'C' AND TIER = 'L04' THEN VOLUME
+                                                                WHEN slotmaster_level = 'C' AND slotmaster_tier = 'L04' THEN slotmaster_usecube
                                                                 ELSE 0
                                                             END) AS LEVELCVOL
                                                         FROM
-                                                            hep.bay_location;");
+                                                            hep.slotmaster;");
 $lo4sql->execute();
 $lo4sqlarray = $lo4sql->fetchAll(pdo::FETCH_ASSOC);
 

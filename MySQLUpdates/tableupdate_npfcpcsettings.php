@@ -2,7 +2,15 @@
 
 include_once '../connection/connection_details.php';
 ini_set('memory_limit', '-1'); //max size 32m
-$filename = 'item_master_HHP_20180509.txt';  //need to change this to look for any date
+ini_set('max_execution_time', 99999);
+
+$fileglob = glob('../../ftproot/ftpde/item_master*.txt');  //glob wildcard searches for any file
+
+if (count($fileglob) > 0) {
+    $filename = $fileglob[0];
+}
+
+
 $result = array();
 $fp = fopen($filename, 'r');
 if (($headers = fgetcsv($fp, 0, "\t")) !== FALSE) {
@@ -37,23 +45,23 @@ do {
     $data = array();
     $values = array();
     while ($counter <= $maxrange) { //split into 5,000 lines segments to insert into merge table //sub loop through items by whse to pull in CPC settings by whse/item
-        $CPCWHSE = $result[$counter]['LagerNr'];
+        $CPCWHSE = $result[$counter]['Warehouse'];
         $CPCITEM = str_replace(',', '.', intval($result[$counter]['Material']));
-        $CPCEPKU = str_replace(',', '.', intval($result[$counter]['ST_Pack_Mg']));
-        $CPCCPKU = str_replace(',', '.', intval($result[$counter]['GEB_Pack_Mg']));
+        $CPCEPKU = str_replace(',', '.', intval($result[$counter]['EachUnit']));
+        $CPCCPKU = str_replace(',', '.', intval($result[$counter]['CaseUnit']));
         $CPCFLOW = " ";
         $CPCTOTE = " ";
         $CPCSHLF = " ";
-        $CPCROTA = $result[$counter]['Kann_Liegend'];
+        $CPCROTA = $result[$counter]['Rotatable'];
         $CPCESTK = 0;
         $CPCLIQU = " ";
-        $CPCPFRL = $result[$counter]['Pick_Reserve'];
-        $CPCEWID = str_replace(',', '.', intval($result[$counter]['ST_Breite']));
-        $CPCEHEI = str_replace(',', '.', intval($result[$counter]['ST_Hoehe']));
-        $CPCELEN = str_replace(',', '.', intval($result[$counter]['ST_Laenge']));
-        $CPCCWID = str_replace(',', '.', intval($result[$counter]['GEB_Breite']));
-        $CPCCHEI = str_replace(',', '.', intval($result[$counter]['GEB_Hoehe']));
-        $CPCCLEN = str_replace(',', '.', intval($result[$counter]['GEB_Laenge']));
+        $CPCPFRL = $result[$counter]['PickReserve'];
+        $CPCEWID = str_replace(',', '.', intval($result[$counter]['EachWidth']));
+        $CPCEHEI = str_replace(',', '.', intval($result[$counter]['EachHeight']));
+        $CPCELEN = str_replace(',', '.', intval($result[$counter]['EachLenght']));
+        $CPCCWID = str_replace(',', '.', intval($result[$counter]['CaseWidth']));
+        $CPCCHEI = str_replace(',', '.', intval($result[$counter]['CaseHeight']));
+        $CPCCLEN = str_replace(',', '.', intval($result[$counter]['CaseLenght']));
         $CPCNEST = 0;
         $CPCCONV = $result[$counter]['Conveyable'];
 
@@ -74,3 +82,7 @@ do {
     $query->execute();
     $maxrange += 10000;
 } while ($counter <= $rowcount); //end of item by whse loop
+
+foreach ($fileglob as $deletefile) {
+    unlink(realpath($deletefile));
+}

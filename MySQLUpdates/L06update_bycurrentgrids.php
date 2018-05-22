@@ -27,13 +27,13 @@ $Max_L06_picks = $L06_pick_limit * $LSE_Picks;  //maximum number of picks to res
 
 
 $L06GridsSQL = $conn1->prepare("SELECT 
-                                                                        DIMGROUP as LMGRD5,  HIGH as LMHIGH, DEEP as LMDEEP, WIDE as LMWIDE, VOLUME * 1000000 as LOCVOL, COUNT(*) as GRIDCOUNT
+                                                                        slotmaster_dimgroup as LMGRD5,  slotmaster_usehigh as LMHIGH, slotmaster_usedeep as LMDEEP, slotmaster_usewide as LMWIDE, slotmaster_usecube * 1000000 as LOCVOL, COUNT(*) as GRIDCOUNT
                                                                     FROM
-                                                                        hep.bay_location
+                                                                        hep.slotmaster
                                                                     WHERE
-                                                                        TIER = 'L06'
-                                                                    GROUP BY DIMGROUP ,  HIGH , DEEP , WIDE , VOLUME
-                                                                    ORDER BY  VOLUME");
+                                                                        slotmaster_tier = 'L06'
+                                                                    GROUP BY slotmaster_dimgroup ,  slotmaster_usehigh , slotmaster_usedeep , slotmaster_usewide , slotmaster_usecube
+                                                                    ORDER BY  slotmaster_usecube");
 $L06GridsSQL->execute();
 $L06GridsArray = $L06GridsSQL->fetchAll(pdo::FETCH_ASSOC);
 
@@ -71,12 +71,12 @@ $L06sql = $conn1->prepare("SELECT DISTINCT
                                                                 X.CPCCHEI,
                                                                 X.CPCCWID,
                                                                 X.CPCNEST,
-                                                                HIGH AS LMHIGH,
-                                                                DEEP AS LMDEEP,
-                                                                WIDE AS LMWIDE,
-                                                                VOLUME AS LMVOL9,
-                                                                TIER AS LMTIER,
-                                                                DIMGROUP AS LMGRD5,
+                                                                slotmaster_usehigh AS LMHIGH,
+                                                                slotmaster_usedeep AS LMDEEP,
+                                                                slotmaster_usewide AS LMWIDE,
+                                                                slotmaster_usecube AS LMVOL9,
+                                                                slotmaster_tier AS LMTIER,
+                                                                slotmaster_dimgroup AS LMGRD5,
                                                                 loc_truefit AS CURMAX,
                                                                 loc_minqty AS CURMIN,
                                                             CASE
@@ -103,7 +103,7 @@ $L06sql = $conn1->prepare("SELECT DISTINCT
                                                                 hep.item_settings S ON S.ITEM = A.ITEM
                                                                     LEFT JOIN
                                                                 hep.pkgu_percent ON PERC_ITEM = A.ITEM
-                                                                JOIN hep.bay_location on LOCATION = D.loc_location
+                                                                JOIN hep.slotmaster on slotmaster_loc = D.loc_location
                                                     WHERE
                                                              $sql_dailypick <= 1
                                                             and F.ITEM_NUMBER IS NULL
@@ -111,7 +111,7 @@ $L06sql = $conn1->prepare("SELECT DISTINCT
                                                             and X.CPCEWID * X.CPCEHEI * X.CPCELEN < $maxL06vol
                                                             and A.PKTYPE ='LSE'
                                                                     AND F.ITEM_NUMBER IS NULL
-                                                                    AND TIER IN ('L01' , 'L02', 'L04', 'L06')
+                                                                    AND slotmaster_tier IN ('L01' , 'L02', 'L04', 'L06')
                                                     ORDER BY $sql_dailypick asc");
 
 

@@ -22,13 +22,13 @@ include '../connection/connection_details.php';
 //Pull in available L04 Grid5s by volume ascending order
 
 $L04GridsSQL = $conn1->prepare("SELECT 
-                                                                        DIMGROUP as LMGRD5,  HIGH as LMHIGH, DEEP as LMDEEP, WIDE as LMWIDE, VOLUME as LMVOL9, COUNT(*) as GRIDCOUNT
+                                                                        slotmaster_dimgroup as LMGRD5,  slotmaster_usehigh as LMHIGH, slotmaster_usedeep as LMDEEP, slotmaster_usewide as LMWIDE, slotmaster_usecube as LMVOL9, COUNT(*) as GRIDCOUNT
                                                                     FROM
-                                                                        hep.bay_location
+                                                                        hep.slotmaster
                                                                     WHERE
-                                                                        LEVEL = '$level' AND TIER = 'L04'
-                                                                    GROUP BY DIMGROUP ,  HIGH , DEEP , WIDE , VOLUME
-                                                                    ORDER BY  VOLUME");
+                                                                        slotmaster_level = '$level' AND slotmaster_tier = 'L04'
+                                                                    GROUP BY slotmaster_dimgroup ,  slotmaster_usehigh , slotmaster_usedeep , slotmaster_usewide , slotmaster_usecube
+                                                                    ORDER BY  slotmaster_usecube");
 $L04GridsSQL->execute();
 $L04GridsArray = $L04GridsSQL->fetchAll(pdo::FETCH_ASSOC);
 
@@ -62,12 +62,12 @@ $L04sql = $conn1->prepare("SELECT DISTINCT
                                                                 X.CPCCHEI,
                                                                 X.CPCCWID,
                                                                 X.CPCNEST,
-                                                                HIGH AS LMHIGH,
-                                                                DEEP AS LMDEEP,
-                                                                WIDE AS LMWIDE,
-                                                                VOLUME AS LMVOL9,
-                                                                TIER AS LMTIER,
-                                                                DIMGROUP AS LMGRD5,
+                                                                slotmaster_usehigh AS LMHIGH,
+                                                                slotmaster_usedeep AS LMDEEP,
+                                                                slotmaster_usewide AS LMWIDE,
+                                                                slotmaster_usecube AS LMVOL9,
+                                                                slotmaster_tier AS LMTIER,
+                                                                slotmaster_dimgroup AS LMGRD5,
                                                                 loc_truefit AS CURMAX,
                                                                 loc_minqty AS CURMIN,
                                                             CASE
@@ -94,12 +94,12 @@ $L04sql = $conn1->prepare("SELECT DISTINCT
                                                                 hep.item_settings S ON S.ITEM = A.ITEM
                                                                     LEFT JOIN
                                                                 hep.pkgu_percent ON PERC_ITEM = A.ITEM
-                                                                JOIN hep.bay_location on LOCATION = D.loc_location
+                                                                JOIN hep.slotmaster on slotmaster_loc = D.loc_location
                                                             WHERE
                                                                 A.PKTYPE ='LSE'
                                                                     AND F.ITEM_NUMBER IS NULL
-                                                                    AND TIER IN ('L01' , 'L02', 'L04', 'L06')
-                                                                    AND LEVEL = '$level'
+                                                                    AND slotmaster_tier IN ('L01' , 'L02', 'L04', 'L06')
+                                                                    AND slotmaster_level = '$level'
                                                                     AND (PERC_PKGTYPE = 'LSE' or PERC_PKGTYPE is null)
                                                             ORDER BY DLY_CUBE_VEL DESC, DAILYPICK desc");
 $L04sql->execute();
@@ -138,15 +138,15 @@ foreach ($L04array as $key => $value) {
     switch ($level) {
         case 'A':
             if ($AVGD_BTW_SLE <= 1) {
-                $daystostock = 20;
+                $daystostock = 30;
             } elseif ($AVGD_BTW_SLE <= 2) {
-                $daystostock = 15;
+                $daystostock = 20;
             } elseif ($AVGD_BTW_SLE <= 3) {
-                $daystostock = 10;
+                $daystostock = 20;
             } elseif ($AVGD_BTW_SLE <= 4) {
-                $daystostock = 10;
+                $daystostock = 15;
             } elseif ($AVGD_BTW_SLE <= 5) {
-                $daystostock = 10;
+                $daystostock = 15;
             } elseif ($AVGD_BTW_SLE <= 7) {
                 $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 10) {
@@ -170,15 +170,15 @@ foreach ($L04array as $key => $value) {
 
         case 'B':
             if ($AVGD_BTW_SLE <= 1) {
-                $daystostock = 20;
+                $daystostock = 30;
             } elseif ($AVGD_BTW_SLE <= 2) {
-                $daystostock = 15;
+                $daystostock = 20;
             } elseif ($AVGD_BTW_SLE <= 3) {
-                $daystostock = 10;
+                $daystostock = 15;
             } elseif ($AVGD_BTW_SLE <= 4) {
-                $daystostock = 10;
+                $daystostock = 15;
             } elseif ($AVGD_BTW_SLE <= 5) {
-                $daystostock = 10;
+                $daystostock = 15;
             } elseif ($AVGD_BTW_SLE <= 7) {
                 $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 10) {
@@ -202,15 +202,15 @@ foreach ($L04array as $key => $value) {
 
         case 'C':
             if ($AVGD_BTW_SLE <= 1) {
-                $daystostock = 20;
+                $daystostock = 30;
             } elseif ($AVGD_BTW_SLE <= 2) {
-                $daystostock = 15;
+                $daystostock = 20;
             } elseif ($AVGD_BTW_SLE <= 3) {
-                $daystostock = 10;
+                $daystostock = 15;
             } elseif ($AVGD_BTW_SLE <= 4) {
-                $daystostock = 10;
+                $daystostock = 15;
             } elseif ($AVGD_BTW_SLE <= 5) {
-                $daystostock = 10;
+                $daystostock = 15;
             } elseif ($AVGD_BTW_SLE <= 7) {
                 $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 10) {
@@ -318,7 +318,7 @@ foreach ($L04array as $key => $value) {
     $L04array[$key]['SUGGESTED_SLOTQTY'] = $slotqty;
     $L04array[$key]['SUGGESTED_IMPMOVES'] = _implied_daily_moves($SUGGESTED_MAX, $SUGGESTED_MIN, $avgdailyshipqty, $var_AVGINV, $L04array[$key]['SHIP_QTY_MN'], $L04array[$key]['AVGD_BTW_SLE']);
     $L04array[$key]['CURRENT_IMPMOVES'] = _implied_daily_moves($L04array[$key]['CURMAX'], $L04array[$key]['CURMIN'], $avgdailyshipqty, $var_AVGINV, $L04array[$key]['SHIP_QTY_MN'], $L04array[$key]['AVGD_BTW_SLE']);
-    $L04array[$key]['SUGGESTED_NEWLOCVOL'] = intval(substr($lastusedgrid5, 0, 2)) * intval(substr($lastusedgrid5, 3, 2)) * intval($var_griddepth);
+
     $L04array[$key]['SUGGESTED_NEWLOCVOL'] = $var_locvol;
     $L04array[$key]['SUGGESTED_DAYSTOSTOCK'] = intval($daystostock);
 

@@ -1709,3 +1709,47 @@ function _tiercalc($fixt, $stor, $loc, $desc) {
     $tier = 'RES';
     return $tier;
 }
+
+function _baycalc($loc, $tier) {
+    $baycalc = array();
+    switch ($tier) {
+        case 'L01':
+            $baycalc[] = substr($loc, 0, 7);
+            $baycalc[] = substr($loc, 0, 5);
+            break;
+        case 'L02':
+            $baycalc[] = substr($loc, 0, 4);
+            $baycalc[] = substr($loc, 0, 4);
+            break;
+        case 'L04':
+            $baycalc[] = substr($loc, 0, 6);
+            $baycalc[] = substr($loc, 0, 5);
+            break;
+        case 'L06':
+            $baycalc[] = substr($loc, 0, 2) . 'ROT';
+            $baycalc[] = substr($loc, 0, 2) . 'ROT';
+            break;
+        case 'L08':
+            $baycalc[] = substr($loc, 0, 6);
+            $baycalc[] = substr($loc, 0, 5);
+            break;
+        case 'L10':
+            $baycalc[] = substr($loc, 0, 2) . 'COOL';
+            $baycalc[] = substr($loc, 0, 2) . 'COO';
+            break;
+        case 'L12':
+            $baycalc[] = substr($loc, 0, 6);
+            $baycalc[] = substr($loc, 0, 5);
+            break;
+        case 'L20':
+            $baycalc[] = substr($loc, 0, 6);
+            $baycalc[] = substr($loc, 0, 5);
+            break;
+        default:
+            $baycalc[] = substr($loc, 0, 6);
+            $baycalc[] = substr($loc, 0, 5);
+            break;
+    }
+    //returns array of both the bay and the walkbay
+    return $baycalc;
+}

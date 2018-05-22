@@ -25,13 +25,13 @@ include '../connection/connection_details.php';
 //Pull in available L04 Grid5s by volume ascending order
 
 $L04GridsSQL = $conn1->prepare("SELECT 
-                                                                        DIMGROUP as LMGRD5,  HIGH as LMHIGH, DEEP as LMDEEP, WIDE as LMWIDE, VOLUME as LMVOL9, COUNT(*) as GRIDCOUNT
+                                                                        slotmaster_dimgroup as LMGRD5,  slotmaster_usehigh as LMHIGH, slotmaster_usedeep as LMDEEP, slotmaster_usewide as LMWIDE, slotmaster_usecube as LMVOL9, COUNT(*) as GRIDCOUNT
                                                                     FROM
-                                                                        hep.bay_location
+                                                                        hep.slotmaster
                                                                     WHERE
                                                                         LEVEL = '$level' AND TIER = 'L04'
-                                                                    GROUP BY DIMGROUP ,  HIGH , DEEP , WIDE , VOLUME
-                                                                    ORDER BY  VOLUME");
+                                                                    GROUP BY slotmaster_dimgroup ,  slotmaster_usehigh , slotmaster_usedeep , slotmaster_usewide , slotmaster_usecube
+                                                                    ORDER BY  slotmaster_usecube");
 $L04GridsSQL->execute();
 $L04GridsArray = $L04GridsSQL->fetchAll(pdo::FETCH_ASSOC);
 
@@ -66,12 +66,12 @@ $L04sql = $conn1->prepare("SELECT DISTINCT
                                                                 X.CPCCHEI,
                                                                 X.CPCCWID,
                                                                 X.CPCNEST,
-                                                                HIGH AS LMHIGH,
-                                                                DEEP AS LMDEEP,
-                                                                WIDE AS LMWIDE,
-                                                                VOLUME AS LMVOL9,
-                                                                TIER AS LMTIER,
-                                                                DIMGROUP AS LMGRD5,
+                                                                slotmaster_usehigh AS LMHIGH,
+                                                                slotmaster_usedeep AS LMDEEP,
+                                                                slotmaster_usewide AS LMWIDE,
+                                                                slotmaster_usecube AS LMVOL9,
+                                                                slotmaster_tier AS LMTIER,
+                                                                slotmaster_dimgroup AS LMGRD5,
                                                                 loc_truefit AS CURMAX,
                                                                 loc_minqty AS CURMIN,
                                                             CASE
@@ -98,12 +98,12 @@ $L04sql = $conn1->prepare("SELECT DISTINCT
                                                                 hep.item_settings S ON S.ITEM = A.ITEM
                                                                     LEFT JOIN
                                                                 hep.pkgu_percent ON PERC_ITEM = A.ITEM
-                                                                JOIN hep.bay_location on LOCATION = D.loc_location
+                                                                JOIN hep.slotmaster on slotmaster_loc = D.loc_location
                                                             WHERE
                                                                 A.PKTYPE ='LSE'
                                                                     AND F.ITEM_NUMBER IS NULL
-                                                                    AND TIER IN ('L01' , 'L02', 'L04', 'L06')
-                                                                    AND LEVEL = '$level'
+                                                                    AND slotmaster_tier IN ('L01' , 'L02', 'L04', 'L06')
+                                                                    AND slotmaster_level = '$level'
                                                                     AND (PERC_PKGTYPE = 'LSE' or PERC_PKGTYPE is null)
                                                             ORDER BY DLY_CUBE_VEL DESC, DAILYPICK desc");
 $L04sql->execute();

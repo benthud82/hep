@@ -246,15 +246,15 @@ $result2 = $conn1->prepare("INSERT INTO hep.replen_hist (replen_whse, replen_dat
                             SELECT 
                                 WAREHOUSE,
                                 CURDATE(),
-                                BAY,
+                                slotmaster_bay,
                                 SUM(CURRENT_IMPMOVES - SUGGESTED_IMPMOVES) * 253 AS YEARLYMOVES
                             FROM
                                 hep.my_npfmvc
                                     JOIN
                                 hep.optimalbay ON OPT_ITEM = ITEM_NUMBER
                                     JOIN
-                                hep.bay_location ON LOCATION = CUR_LOCATION
-                            GROUP BY WAREHOUSE , CURDATE() , BAY
+                                hep.slotmaster ON slotmaster_loc = CUR_LOCATION
+                            GROUP BY WAREHOUSE , CURDATE() , slotmaster_bay
                             ON DUPLICATE KEY UPDATE replen_replens=VALUES(replen_replens)");
 $result2->execute();
 
@@ -264,15 +264,15 @@ $result3 = $conn1->prepare("INSERT INTO hep.walk_hist (walk_whse, walk_date, wal
                                                             SELECT 
                                                                 OPT_WHSE,
                                                                 CURDATE(),
-                                                                L.BAY,
+                                                                L.slotmaster_bay,
                                                                 SUM(OPT_ADDTLFTPERDAY) * 253 AS YEARLYFEET
                                                             FROM
                                                                 hep.optimalbay
                                                                     JOIN
                                                                 hep.my_npfmvc ON OPT_ITEM = ITEM_NUMBER
                                                                     JOIN
-                                                                hep.bay_location L ON L.LOCATION = CUR_LOCATION
-                                                            GROUP BY OPT_WHSE , CURDATE() , L.BAY
+                                                                hep.slotmaster L ON L.slotmaster_loc = CUR_LOCATION
+                                                            GROUP BY OPT_WHSE , CURDATE() , L.slotmaster_bay
                                                             ON DUPLICATE KEY UPDATE walk_walkfeet=VALUES(walk_walkfeet)");
 $result3->execute();
 
@@ -282,14 +282,14 @@ $result3->execute();
 //update picksbybay table
 $result = $conn1->prepare("INSERT INTO hep.picksbybay (picksbybay_WHSE, picksbybay_DATE, picksbybay_BAY, picksbybay_PICKS)
                                                     SELECT 
-                                                        'HEP',PICKDATE, B.BAY AS BAY, COUNT(*) AS PICKCOUNT
+                                                        'HEP',PICKDATE, B.slotmaster_bay AS BAY, COUNT(*) AS PICKCOUNT
                                                     FROM
                                                         hep.hep_raw A
                                                             JOIN
-                                                        hep.bay_location B ON A.LOCATION = B.LOCATION
+                                                        hep.slotmaster B ON A.LOCATION = B.slotmaster_loc
                                                     WHERE
                                                        PICKDATE >= '$previous7days'
-                                                    GROUP BY A.PICKDATE , B.BAY
+                                                    GROUP BY A.PICKDATE , B.slotmaster_bay
                                                     on duplicate key update picksbybay_PICKS=VALUES(picksbybay_PICKS)");
 $result->execute();
 
@@ -302,12 +302,12 @@ $result4 = $conn1->prepare(" INSERT INTO hep.feetperpick_summary (fpp_whse, fpp_
                             SELECT 
                                 picksbybay_WHSE,
                                 picksbybay_DATE,
-                                sum(picksbybay_PICKS * WALKFEET)  as fpp_totalfeet,
-                                sum(picksbybay_PICKS * WALKFEET) / sum(picksbybay_PICKS) as fpp_fpp
+                                sum(picksbybay_PICKS * slotmaster_distance)  as fpp_totalfeet,
+                                sum(picksbybay_PICKS * slotmaster_distance) / sum(picksbybay_PICKS) as fpp_fpp
                             FROM
                                 hep.picksbybay
                                      join
-                                hep.bay_location ON picksbybay_BAY = BAY
+                                hep.slotmaster ON picksbybay_BAY = slotmaster_bay
                             WHERE
                                picksbybay_DATE > '$previous7days'
                             GROUP BY picksbybay_DATE , picksbybay_WHSE
@@ -322,15 +322,15 @@ $querydelete2->execute();
 
 $result5 = $conn1->prepare("INSERT IGNORE INTO hep.vectormaperrors (maperror_bay, maperror_tier)
                                                         SELECT DISTINCT
-                                                            L.BAY AS SLOTBAY, L.TIER
+                                                            L.slotmaster_bay AS SLOTBAY, L.slotmaster_tier
                                                         FROM
                                                             hep.item_location D
                                                                 JOIN
-                                                            hep.bay_location L ON L.LOCATION = LOCATION
+                                                            hep.slotmaster L ON L.slotmaster_loc = loc_location
                                                                 LEFT JOIN
-                                                            hep.vectormap V ON V.BAY = L.BAY
+                                                            hep.vectormap V ON V.BAY = L.slotmaster_bay
                                                         WHERE
-                                                            L.WALKFEET IS NULL");
+                                                            L.slotmaster_distance IS NULL");
 $result5->execute();
 
 
