@@ -193,11 +193,11 @@ $sql2 = "INSERT IGNORE INTO hep.nptsld
                                         GROUPED_PKTYPE,
                                         GROUPED_DSLS AS RECENTDSLS
                                 FROM
-                                    hep.hep_grouped
+                                    hep.hep_grouped 
                                 GROUP BY GROUPED_ITEM , GROUPED_PKGU , GROUPED_PKTYPE) B ON A.GROUPED_ITEM = B.GROUPED_ITEM
                                     AND A.GROUPED_PKGU = B.GROUPED_PKGU
                                     AND A.GROUPED_PKTYPE = B.GROUPED_PKTYPE
-                               WHERE A.GROUPED_DSLS <> 0
+                               WHERE A.GROUPED_DSLS <> 0 and A.GROUPED_PKTYPE = 'LSE'
                             GROUP BY A.GROUPED_ITEM , A.GROUPED_PKGU , A.GROUPED_PKTYPE";
 $query2 = $conn1->prepare($sql2);
 $query2->execute();

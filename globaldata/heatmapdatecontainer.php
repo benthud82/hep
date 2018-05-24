@@ -1,20 +1,20 @@
 <?php
 $levelpick = $conn1->prepare("SELECT 
-                                                        LEVEL, SUM(AVG_DAILY_PICK) as LEVEL_PICK, SUM(AVG_DAILY_UNIT) as LEVEL_UNIT
+                                                        slotmaster_level, SUM(AVG_DAILY_PICK) as LEVEL_PICK, SUM(AVG_DAILY_UNIT) as LEVEL_UNIT
                                                     FROM
                                                         hep.nptsld
                                                             JOIN
                                                         hep.item_location ON ITEM = loc_item
                                                             JOIN
-                                                        hep.bay_location ON loc_location = LOCATION
-                                                        WHERE LEVEL = '$var_levelsel'
-                                                    GROUP BY LEVEL");  //$orderby pulled from: include 'slopecat_switch_orderby.php';
+                                                        hep.slotmaster ON loc_location = slotmaster_loc
+                                                        WHERE slotmaster_level = '$var_levelsel'
+                                                    GROUP BY slotmaster_level");  //$orderby pulled from: include 'slopecat_switch_orderby.php';
 $levelpick->execute();
 $levelpick_array = $levelpick->fetchAll(pdo::FETCH_ASSOC);
 
 
 $zonepick = $conn1->prepare("SELECT 
-                                                            SUBSTR(LOCATION, 1, 2) AS ZONE,
+                                                            SUBSTR(slotmaster_loc, 1, 2) AS ZONE,
                                                             SUM(AVG_DAILY_PICK) as ZONE_PICK,
                                                             SUM(AVG_DAILY_UNIT) as ZONE_UNIT
                                                         FROM
@@ -22,9 +22,9 @@ $zonepick = $conn1->prepare("SELECT
                                                                 JOIN
                                                             hep.item_location ON ITEM = loc_item
                                                                 JOIN
-                                                            hep.bay_location ON loc_location = LOCATION
-                                                            WHERE LEVEL = '$var_levelsel'
-                                                        GROUP BY SUBSTR(LOCATION, 1, 2)");  //$orderby pulled from: include 'slopecat_switch_orderby.php';
+                                                            hep.slotmaster ON loc_location = slotmaster_loc
+                                                            WHERE slotmaster_level = '$var_levelsel'
+                                                        GROUP BY SUBSTR(slotmaster_loc, 1, 2)");  //$orderby pulled from: include 'slopecat_switch_orderby.php';
 $zonepick->execute();
 $zonepick_array = $zonepick->fetchAll(pdo::FETCH_ASSOC);
 ?>

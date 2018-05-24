@@ -33,29 +33,29 @@ foreach ($levels_array as $level) {
 
 //--pull in available tiers--
     $alltiersql = $conn1->prepare("SELECT 
-                                                                        WHSE AS TIER_WHS,
-                                                                        TIER AS TIER_TIER,
+                                                                        slotmaster_branch AS TIER_WHS,
+                                                                        slotmaster_tier AS TIER_TIER,
                                                                         COUNT(*) AS TIER_COUNT
                                                                     FROM
-                                                                        hep.bay_location
+                                                                        hep.slotmaster
                                                                     WHERE
-                                                                        WHSE = '$whssel'
-                                                                            AND LEVEL = '$level'
-                                                                    GROUP BY WHSE , TIER; ");  //$orderby pulled from: include 'slopecat_switch_orderby.php';
+                                                                        slotmaster_branch = '$whssel'
+                                                                            AND slotmaster_level = '$level'
+                                                                    GROUP BY slotmaster_branch , slotmaster_tier; ");  //$orderby pulled from: include 'slopecat_switch_orderby.php';
     $alltiersql->execute();
     $alltierarray = $alltiersql->fetchAll(pdo::FETCH_ASSOC);
 
 //--pull in volume by tier--
     $allvolumesql = $conn1->prepare("SELECT 
-                                                                            WHSE AS LMWHSE,
-                                                                            TIER AS LMTIER,
-                                                                            SUM(VOLUME) * 1000000 AS TIER_VOL
+                                                                            slotmaster_branch AS LMWHSE,
+                                                                            slotmaster_tier AS LMTIER,
+                                                                            SUM(slotmaster_usecube) * 1000000 AS TIER_VOL
                                                                         FROM
-                                                                            hep.bay_location
+                                                                            hep.slotmaster
                                                                         WHERE
-                                                                            WHSE = '$whssel'
-                                                                                AND LEVEL = '$level'
-                                                                        GROUP BY WHSE , TIER; ");  //$orderby pulled from: include 'slopecat_switch_orderby.php';
+                                                                            slotmaster_branch = '$whssel'
+                                                                                AND slotmaster_level = '$level'
+                                                                        GROUP BY slotmaster_branch , slotmaster_tier; ");  //$orderby pulled from: include 'slopecat_switch_orderby.php';
     $allvolumesql->execute();
     $allvolumearray = $allvolumesql->fetchAll(pdo::FETCH_ASSOC);
 

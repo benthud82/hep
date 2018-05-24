@@ -91,9 +91,9 @@ switch ($mapsel) {
                                                                         AND ITEM_NUMBER = SCORE_ITEM
                                                                         AND SCORE_PKGU = PACKAGE_UNIT
                                                                         JOIN
-                                                                    hep.bay_location ON CUR_LOCATION = LOCATION
+                                                                    hep.slotmaster ON CUR_LOCATION = slotmaster_loc
                                                                 WHERE
-                                                                    BAY = '$BAYCODE'
+                                                                    slotmaster_bay = '$BAYCODE'
                                                                 ORDER BY SCORE_WALKSCORE ASC");  //$orderby pulled from: include 'slopecat_switch_orderby.php';
         $result2->execute();
         $itemscorearray = $result2->fetchAll(pdo::FETCH_ASSOC);

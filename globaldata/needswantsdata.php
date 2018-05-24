@@ -42,12 +42,12 @@ $levelsel= ($_GET['levelsel']);
 
 //pull in distict grids either used or suggested
 $distinctgridsql = $conn1->prepare("SELECT DISTINCT
-                                                                DIMGROUP AS GRID5_DEP
+                                                                slotmaster_dimgroup AS GRID5_DEP
                                                             FROM
-                                                                hep.bay_location
+                                                                hep.slotmaster
                                                             WHERE
-                                                                WALKFEET = $baynum AND TIER = '$tiersel' and LEVEL = '$levelsel'
-                                                            ORDER BY VOLUME");
+                                                                slotmaster_distance = $baynum AND slotmaster_tier = '$tiersel' and slotmaster_level = '$levelsel'
+                                                            ORDER BY slotmaster_usecube");
 $distinctgridsql->execute();
 $distinctgridarray = $distinctgridsql->fetchAll(pdo::FETCH_ASSOC);
 
@@ -71,14 +71,14 @@ $suggestedgridarray = $suggestedgridsql->fetchAll(pdo::FETCH_ASSOC);
 
 //pull in current count by grid5_dep
 $currentgridsql = $conn1->prepare("SELECT 
-                                                                DIMGROUP AS CUR_GRID5_DEP, sum(VOLUME) as CUR_VOL, COUNT(*) AS CUR_COUNT
+                                                                slotmaster_dimgroup AS CUR_GRID5_DEP, sum(slotmaster_usecube) as CUR_VOL, COUNT(*) AS CUR_COUNT
                                                             FROM
-                                                                hep.bay_location
+                                                                hep.slotmaster
                                                             WHERE
-                                                                WALKFEET = $baynum
-                                                                    AND TIER = '$tiersel'  and LEVEL = '$levelsel'
-                                                            GROUP BY DIMGROUP
-                                                            ORDER BY VOLUME;");
+                                                                slotmaster_distance = $baynum
+                                                                    AND slotmaster_tier = '$tiersel'  and slotmaster_level = '$levelsel'
+                                                            GROUP BY slotmaster_dimgroup
+                                                            ORDER BY slotmaster_usecube;");
 $currentgridsql->execute();
 $currentgridarray = $currentgridsql->fetchAll(pdo::FETCH_ASSOC);
 

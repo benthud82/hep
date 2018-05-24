@@ -138,15 +138,15 @@ foreach ($L04array as $key => $value) {
     switch ($level) {
         case 'A':
             if ($AVGD_BTW_SLE <= 1) {
-                $daystostock = 30;
+                $daystostock = 20;
             } elseif ($AVGD_BTW_SLE <= 2) {
-                $daystostock = 20;
+                $daystostock = 15;
             } elseif ($AVGD_BTW_SLE <= 3) {
-                $daystostock = 20;
+                $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 4) {
-                $daystostock = 15;
+                $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 5) {
-                $daystostock = 15;
+                $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 7) {
                 $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 10) {
@@ -170,15 +170,15 @@ foreach ($L04array as $key => $value) {
 
         case 'B':
             if ($AVGD_BTW_SLE <= 1) {
-                $daystostock = 30;
-            } elseif ($AVGD_BTW_SLE <= 2) {
                 $daystostock = 20;
+            } elseif ($AVGD_BTW_SLE <= 2) {
+                $daystostock = 15;
             } elseif ($AVGD_BTW_SLE <= 3) {
-                $daystostock = 15;
+                $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 4) {
-                $daystostock = 15;
+                $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 5) {
-                $daystostock = 15;
+                $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 7) {
                 $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 10) {
@@ -202,15 +202,15 @@ foreach ($L04array as $key => $value) {
 
         case 'C':
             if ($AVGD_BTW_SLE <= 1) {
-                $daystostock = 30;
-            } elseif ($AVGD_BTW_SLE <= 2) {
                 $daystostock = 20;
+            } elseif ($AVGD_BTW_SLE <= 2) {
+                $daystostock = 15;
             } elseif ($AVGD_BTW_SLE <= 3) {
-                $daystostock = 15;
+                $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 4) {
-                $daystostock = 15;
+                $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 5) {
-                $daystostock = 15;
+                $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 7) {
                 $daystostock = 10;
             } elseif ($AVGD_BTW_SLE <= 10) {
