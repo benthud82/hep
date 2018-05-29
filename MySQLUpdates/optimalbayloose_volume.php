@@ -84,11 +84,9 @@ foreach ($ppcarray_L06 as $key => $value) {
     $OPT_NEWGRID = $ppcarray_L06[$key]['OPT_NEWGRID'];
     $OPT_NDEP = intval($ppcarray_L06[$key]['OPT_NDEP']);
 
-
-
     if (!is_null($testloc) && $testloc <> '') {
         $OPT_LOCATION = $testloc;
-    } else if (count($baycubearray_L06 > 0)) {
+    } else if (sizeof($baycubearray_L06 > 0)) {
         //need to verify the location size matches
 
         foreach ($baycubearray_L06 as $key2 => $value) {//loop through L01 non-assigned grids

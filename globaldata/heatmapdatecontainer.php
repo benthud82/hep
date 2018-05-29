@@ -38,7 +38,7 @@ $zonepick_array = $zonepick->fetchAll(pdo::FETCH_ASSOC);
                 <div class="widget-thumb-wrap">
                     <!--<i class="widget-thumb-icon bg-blue fa  fa-clock-o  fa-3x "></i>-->
                     <div class="widget-thumb-body">
-                        <span class="widget-thumb-body-stat" >Total Picks for Level <?php echo ($levelpick_array[0]['LEVEL']) ?> : <?php echo intval($levelpick_array[0]['LEVEL_PICK']) ?> </span>
+                        <span class="widget-thumb-body-stat" >Total Picks for Level <?php echo ($levelpick_array[0]['slotmaster_level']) ?> : <?php echo intval($levelpick_array[0]['LEVEL_PICK']) ?> </span>
                     </div>
                 </div>
             </div>

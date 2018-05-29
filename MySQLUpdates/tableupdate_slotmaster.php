@@ -71,7 +71,8 @@ do {
         $slotmaster_tier = _tiercalc($slotmaster_fixt, $slotmaster_stor, $slotmaster_loc, $slotmaster_locdesc);
 
         $slotmaster_bay_return = _baycalc($slotmaster_loc, $slotmaster_tier);
-        $slotmaster_bay = $slotmaster_bay_return[0];
+           //The bay cannot be determined from the location.  Use bay_loc table to update the bay at the bottom of this update
+        $slotmaster_bay = ' ';
         $slotmaster_walkbay = $slotmaster_bay_return[1];
 
 
@@ -100,3 +101,34 @@ do {
 foreach ($fileglob as $deletefile) {
     unlink(realpath($deletefile));
 }
+
+
+//Pull in vector map bay from bay_loc and overwrite $slotmaster_bay in the slotmaster table
+    $sqlmerge2 = "INSERT INTO hep.slotmaster  (SELECT  slotmaster_branch, 
+slotmaster_loc,  
+slotmaster_level,
+slotmaster_locdesc, 
+slotmaster_grhigh,
+slotmaster_grdeep,  
+slotmaster_grwide,  
+slotmaster_grcube,  
+slotmaster_usehigh,  
+slotmaster_usedeep,  
+slotmaster_usewide,  
+slotmaster_usecube,  
+slotmaster_pkgu,  
+slotmaster_pickzone,  
+slotmaster_dimgroup,  
+slotmaster_tier,  
+slotmaster_fixt,  
+slotmaster_fixt_desc,  
+slotmaster_stor,  
+slotmaster_stor_desc,  
+slotmaster_distance,  
+bayloc_bay,
+bayloc_walkbay
+FROM hep.slotmaster JOIN hep.bay_location on slotmaster_loc = bayloc_loc)
+                                    ON DUPLICATE KEY UPDATE 
+                                    slotmaster_bay=VALUES(slotmaster_bay), slotmaster_walkbay=VALUES(slotmaster_walkbay)";
+    $querymerge2 = $conn1->prepare($sqlmerge2);
+    $querymerge2->execute();
