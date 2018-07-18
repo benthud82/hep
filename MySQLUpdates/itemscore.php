@@ -302,12 +302,12 @@ $result4 = $conn1->prepare(" INSERT INTO hep.feetperpick_summary (fpp_whse, fpp_
                             SELECT 
                                 picksbybay_WHSE,
                                 picksbybay_DATE,
-                                sum(picksbybay_PICKS * slotmaster_distance)  as fpp_totalfeet,
-                                sum(picksbybay_PICKS * slotmaster_distance) / sum(picksbybay_PICKS) as fpp_fpp
+                                sum(picksbybay_PICKS * WALKFEET)  as fpp_totalfeet,
+                                sum(picksbybay_PICKS * WALKFEET) / sum(picksbybay_PICKS) as fpp_fpp
                             FROM
                                 hep.picksbybay
                                      join
-                                hep.slotmaster ON picksbybay_BAY = slotmaster_bay
+                                hep.vectormap ON picksbybay_BAY = BAY
                             WHERE
                                picksbybay_DATE > '$previous7days'
                             GROUP BY picksbybay_DATE , picksbybay_WHSE
