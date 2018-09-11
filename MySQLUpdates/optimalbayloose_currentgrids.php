@@ -166,7 +166,7 @@ foreach ($level_array as $level) {
                                                 WHERE
                                                     slotmaster_level = '$level' AND slotmaster_tier = 'L04'
                                                 GROUP BY slotmaster_dimgroup , slotmaster_distance
-                                                ORDER BY VOLUME, slotmaster_distance");
+                                                ORDER BY slotmaster_usecube, slotmaster_distance");
     $baycube_L04->execute();
     $baycubearray_L04 = $baycube_L04->fetchAll(pdo::FETCH_ASSOC);
 
@@ -575,7 +575,7 @@ FROM
         JOIN
     hep.my_npfmvc ON OPT_ITEM = ITEM_NUMBER
                 JOIN
-    hep.slotmaster L ON LOCATION = CUR_LOCATION
+    hep.slotmaster L ON slotmaster_loc = CUR_LOCATION
 WHERE
     OPT_CURTIER <> 'L01'
 GROUP BY OPT_WHSE , OPT_CURTIER , CURDATE() , L.slotmaster_bay";

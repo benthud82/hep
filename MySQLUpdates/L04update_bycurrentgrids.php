@@ -29,7 +29,7 @@ $L04GridsSQL = $conn1->prepare("SELECT
                                                                     FROM
                                                                         hep.slotmaster
                                                                     WHERE
-                                                                        LEVEL = '$level' AND TIER = 'L04'
+                                                                        slotmaster_level = '$level' AND slotmaster_tier = 'L04'
                                                                     GROUP BY slotmaster_dimgroup ,  slotmaster_usehigh , slotmaster_usedeep , slotmaster_usewide , slotmaster_usecube
                                                                     ORDER BY  slotmaster_usecube");
 $L04GridsSQL->execute();

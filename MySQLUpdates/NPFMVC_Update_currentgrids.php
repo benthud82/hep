@@ -65,8 +65,10 @@ foreach ($levels_array as $level) {
 
 //call L01 Update logic
     $L01key = array_search('L01', array_column($alltierarray, 'TIER_TIER')); //Find 'L01' associated key
-    $L01onholdkey = array_search('L01', array_column($holdvolumearray, 'SUGGESTED_TIER'));
-    if ($L01onholdkey !== FALSE) {
+    if (isset($holdvolumearray)) {
+        $L01onholdkey = array_search('L01', array_column($holdvolumearray, 'SUGGESTED_TIER'));
+    }
+    if (isset($L01onholdkey)) {
         $L01onholdcount = intval($holdvolumearray[$L01onholdkey]['ASSCOUNT']);
     }
     if ($L01key !== FALSE) {
