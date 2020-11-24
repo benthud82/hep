@@ -7,7 +7,7 @@ include_once '../globalfunctions/slottingfunctions.php';
 ini_set('memory_limit', '-1'); //max size 32m
 ini_set('max_execution_time', 99999);
 
-$fileglob = glob('../../ftproot/ftpde/storage_bin*.txt');  //glob wildcard searches for any file
+$fileglob = glob('../../ftproot/ftpde/storage_bin_HHP*.txt');  //glob wildcard searches for any file
 
 if (count($fileglob) > 0) {
     $filename = $fileglob[0];
