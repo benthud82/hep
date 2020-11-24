@@ -28,6 +28,11 @@
                     </div>
                 </div>
 
+
+                <!--Does item have multiple primaries?-->
+                <div class="row">
+                    <div id="multprim"></div>
+                </div>
                 <!--Build itemhistory link-->
                 <div id="gotoitemhistory"></div>
 
@@ -37,8 +42,8 @@
                 <!--Slotting Detail container-->
                 <div id="itemdetailcontainer" class="col-md-12"> </div>
 
-                <!--Slotting Settings Container-->
-                <div id="itemsettingscontainer" class="col-md-12" style="display: block;padding-left: 0px;padding-right: 0px;"> </div>
+                <!--                Slotting Settings Container
+                                <div id="itemsettingscontainer" class="col-md-12" style="display: block;padding-left: 0px;padding-right: 0px;"> </div>-->
 
 
 
@@ -227,6 +232,32 @@
                 </div>
 
             </section>
+
+            <!--Tier description modal-->
+            <div id="tierdescmodal" class="modal fade " role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Tier Descriptions</h4>
+                        </div>
+                        <form class="form-horizontal" id="tierdesc">
+                            <div class="modal-body">
+                                <div class="h3">
+                                <ul>
+                                    <li>L01 - Full pallet location</li>
+                                    <li>L02 - Conveyor location</li>
+                                    <li>L04 - Bin location</li>
+                                    <li>L06 - Rotomat location</li>
+                                </ul>
+                            </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
 
 
@@ -257,6 +288,17 @@
                     data: {userid: userid, itemnum: itemnum},
                     success: function (result) {
                         $("#gotoitemhistory").html(result);
+                    }
+                });
+
+                //                Multiple Primaries note
+                $.ajax({
+                    url: 'globaldata/multprim.php',
+                    type: 'POST',
+                    dataType: 'html',
+                    data: {userid: userid, itemnum: itemnum},
+                    success: function (result) {
+                        $("#multprim").html(result);
                     }
                 });
 
@@ -365,6 +407,11 @@
             //modal show add item task
             $(document).on("click", "#additemtask", function (e) {
                 $('#addactionmodal').modal('toggle');
+            });
+
+            //modal show tier desc
+            $(document).on("click", "#tierdescclick", function (e) {
+                $('#tierdescmodal').modal('toggle');
             });
 
             //show move audit modal
@@ -550,7 +597,7 @@
                 debugger;
                 var tier = $('#holdtiermodal').val();
                 var grid5 = $('#grid5sel').val();
-//                var location = $('#holdlocmodal').val();
+                //                var location = $('#holdlocmodal').val();
                 var statuscount = 0;
                 if (tier === "" || tier === "0") {
                     statuscount += 1;

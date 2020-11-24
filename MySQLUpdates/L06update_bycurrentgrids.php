@@ -112,6 +112,11 @@ $L06sql = $conn1->prepare("SELECT DISTINCT
                                                             and A.PKTYPE ='LSE'
                                                                     AND F.ITEM_NUMBER IS NULL
                                                                     AND slotmaster_tier IN ('L01' , 'L02', 'L04', 'L06')
+                                                                    and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
+                                                                                    and slotmaster_block not in ('S', 'N')
                                                     ORDER BY $sql_dailypick asc");
 
 

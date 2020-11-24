@@ -27,6 +27,10 @@ $querydelete->execute();
                                                     hep.slotmaster
                                                 WHERE
                                                     slotmaster_tier = 'L06'
+                                                    and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
                                                 GROUP BY slotmaster_dimgroup , slotmaster_distance
                                                 ORDER BY slotmaster_usecube, slotmaster_distance");
     $baycube_L06->execute();
@@ -67,6 +71,10 @@ FROM
     hep.item_settings S ON S.ITEM = A.ITEM_NUMBER
 WHERE
     SUGGESTED_TIER = 'L06'
+    and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
 ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL ASC");
     $ppc_L06->execute();
     $ppcarray_L06 = $ppc_L06->fetchAll(pdo::FETCH_ASSOC);
@@ -165,6 +173,10 @@ foreach ($level_array as $level) {
                                                     hep.slotmaster
                                                 WHERE
                                                     slotmaster_level = '$level' AND slotmaster_tier = 'L04'
+                                                        and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
                                                 GROUP BY slotmaster_dimgroup , slotmaster_distance
                                                 ORDER BY slotmaster_usecube, slotmaster_distance");
     $baycube_L04->execute();
@@ -178,6 +190,10 @@ foreach ($level_array as $level) {
                                                     hep.slotmaster
                                                 WHERE
                                                     slotmaster_level = '$level' AND slotmaster_tier = 'L02'
+                                                        and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
                                                 GROUP BY slotmaster_dimgroup , slotmaster_distance
                                                 ORDER BY slotmaster_usecube, slotmaster_distance");
     $baycube_L02->execute();
@@ -191,6 +207,10 @@ foreach ($level_array as $level) {
                                                     hep.slotmaster
                                                 WHERE
                                                     slotmaster_level = '$level' AND slotmaster_tier = 'L01'
+                                                        and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
                                                 GROUP BY slotmaster_dimgroup , slotmaster_distance
                                                 ORDER BY slotmaster_usecube, slotmaster_distance");
     $baycube_L01->execute();
@@ -247,6 +267,10 @@ FROM
     hep.item_settings S ON S.ITEM = A.ITEM_NUMBER
 WHERE
     SUGGESTED_TIER = 'L04' and slotmaster_level = '$level'
+        and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
 ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL ASC");
     $ppc_L04->execute();
     $ppcarray_L04 = $ppc_L04->fetchAll(pdo::FETCH_ASSOC);
@@ -287,6 +311,10 @@ FROM
     hep.item_settings S ON S.ITEM = A.ITEM_NUMBER
 WHERE
     SUGGESTED_TIER = 'L01' and slotmaster_level = '$level'
+        and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
 ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL ASC");
     $ppcL01->execute();
     $ppcarray_L01 = $ppcL01->fetchAll(pdo::FETCH_ASSOC);
@@ -327,6 +355,10 @@ FROM
     hep.item_settings S ON S.ITEM = A.ITEM_NUMBER
 WHERE
     SUGGESTED_TIER = 'L02' and slotmaster_level = '$level'
+        and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
 ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL ASC");
     $ppcL02->execute();
     $ppcarray_L02 = $ppcL02->fetchAll(pdo::FETCH_ASSOC);
@@ -575,7 +607,11 @@ FROM
         JOIN
     hep.my_npfmvc ON OPT_ITEM = ITEM_NUMBER
                 JOIN
-    hep.slotmaster L ON slotmaster_loc = CUR_LOCATION
+    hep.slotmaster L ON slotmaster_loc = CUR_LOCATION and 
+    (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
 WHERE
     OPT_CURTIER <> 'L01'
 GROUP BY OPT_WHSE , OPT_CURTIER , CURDATE() , L.slotmaster_bay";

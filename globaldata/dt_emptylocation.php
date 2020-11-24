@@ -13,7 +13,10 @@ $whssqlarray = $whssql->fetchAll(pdo::FETCH_ASSOC);
 
 $var_whse = intval($whssqlarray[0]['slottingDB_users_PRIMDC']);
 
-$emptylocsql = $aseriesconn->prepare("SELECT LMLOC#, LMTIER, LMGRD5, LMDEEP FROM HSIPCORDTA.NPFLSM WHERE LMWHSE = $var_whse and LMITEM = ' ' and LMPRIM = 'P' and LMTIER = '$var_tier'");
+$emptylocsql = $conn1->prepare("SELECT slotmaster_loc, slotmaster_tier, slotmaster_dimgroup, slotmaster_usedeep FROM hep.slotmaster LEFT JOIN hep.item_location  ON loc_location = slotmaster_loc WHERE loc_location IS NULL  and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))and slotmaster_tier = '$var_tier'");
 $emptylocsql->execute();
 $emptylocarray = $emptylocsql->fetchAll(pdo::FETCH_ASSOC);
 

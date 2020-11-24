@@ -3,9 +3,9 @@
 include_once '../connection/connection_details.php';
 ini_set('memory_limit', '-1'); //max size 32m
 ini_set('max_execution_time', 99999);
-$fileglob = glob('../../ftproot/ftpde/picking_to_HHP*.txt');  //glob wildcard searches for any file
+$fileglob = glob('../../ftproot/ftpde/picking_to*.txt');  //glob wildcard searches for any file
 
-if(count($fileglob) > 0){
+if (count($fileglob) > 0) {
     $filename = $fileglob[0];
 }
 
@@ -68,3 +68,22 @@ do {
 foreach ($fileglob as $deletefile) {
     unlink(realpath($deletefile));
 }
+
+$sqldelete3 = "TRUNCATE hep.item_maxvol ";
+$querydelete3 = $conn1->prepare($sqldelete3);
+$querydelete3->execute();
+
+
+$sql2 = "INSERT INTO hep.item_maxvol (whse, maxvol_item, maxvol_vol)
+    SELECT 
+    'HEP', loc_item, MAX(slotmaster_usecube) AS MAX_LMVOL9
+FROM
+    hep.slotmaster X
+        JOIN
+    hep.item_location Z ON slotmaster_loc = loc_location
+GROUP BY loc_item
+ 
+
+";
+$query2 = $conn1->prepare($sql2);
+$query2->execute();

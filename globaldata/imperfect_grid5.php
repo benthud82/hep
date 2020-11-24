@@ -40,9 +40,9 @@ foreach ($EMPTYGRID_array as $key3 => $value3) {
     $IMPERFECT_GRID5_key = array_search($lookupkey_l3, array_column($EMPTYLOC_array, 'KEYVAL'));
     if ($IMPERFECT_GRID5_key <> FALSE) {
 
-        $NEW_LOC = $EMPTYLOC_array[$IMPERFECT_GRID5_key]['LOCATION'];
+        $NEW_LOC = $EMPTYLOC_array[$IMPERFECT_GRID5_key]['slotmaster_loc'];
         $displayarray[$topcostkey]['IMPERFECT_GRID5_SLOT_LOC'] = $NEW_LOC;
-        $NEW_GRD5 = $EMPTYLOC_array[$IMPERFECT_GRID5_key]['DIMGROUP'];
+        $NEW_GRD5 = $EMPTYLOC_array[$IMPERFECT_GRID5_key]['slotmaster_dimgroup'];
         $displayarray[$topcostkey]['AssgnGrid5'] = $NEW_GRD5; //Add new grid5 to display array
 
         $Newmin = _minloc($NEW_LOC_TRUEFIT_round2, $TOP_REPLEN_COST_array[$topcostkey]['SHIP_QTY_MN'], $TOP_REPLEN_COST_array[$topcostkey]['CPCCPKU']);
@@ -53,7 +53,7 @@ foreach ($EMPTYGRID_array as $key3 => $value3) {
             $walk_score_Perf_Loc_array = _walkcost_case($VCFTIR, $VCTTIR, $TOP_REPLEN_COST_array[$topcostkey]['AVG_DAILY_UNIT'], $TOP_REPLEN_COST_array[$topcostkey]['FLOOR']);
             $walk_score_Perf_Loc = 1;
         } else {
-            $walk_score_Perf_Loc = _walkscore( $EMPTYGRID_array[$key3]['WALKFEET'], $OPT_OPTBAY, $TOP_REPLEN_COST_array[$topcostkey]['AVG_DAILY_PICK']);
+            $walk_score_Perf_Loc = _walkscore( $EMPTYGRID_array[$key3]['slotmaster_distance'], $OPT_OPTBAY, $TOP_REPLEN_COST_array[$topcostkey]['AVG_DAILY_PICK']);
         }
 
 

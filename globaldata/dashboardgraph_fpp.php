@@ -12,6 +12,10 @@ $var_whse = $whssqlarray[0]['slottingDB_users_PRIMDC'];
 $time = strtotime("-1 year", time());
 $date = date("Y-m-d", $time);
 
+if($date < '2018-03-01'){
+    $date = '2018-03-01';
+}
+
 $result1 = $conn1->prepare("SELECT * FROM hep.feetperpick_summary  WHERE
                                 fpp_date >= '$date'");
 $result1->execute();

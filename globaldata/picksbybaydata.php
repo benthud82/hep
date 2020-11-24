@@ -21,10 +21,9 @@ $bayreport = $conn1->prepare("SELECT
                                 FROM
                                     hep.picksbybay
                                         join
-                                    hep.vectormap ON VECTWHSE = picksbybay_WHSE
-                                        and BAY = picksbybay_BAY
+                                    hep.vectormap ON BAY = picksbybay_BAY
                                 WHERE
-                                    picksbybay_WHSE = $var_whse
+                                    picksbybay_WHSE = '$var_whse'
                                         and picksbybay_DATE = '$var_date'
                                 ORDER BY picksbybay_PICKS * WALKFEET desc ;");
 $bayreport->execute();

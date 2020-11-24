@@ -10,7 +10,7 @@ $EMPTYGRID_result = $conn1->prepare("SELECT
                                                                     slotmaster_usehigh AS LMHIGH,
                                                                     slotmaster_usedeep AS LMDEEP,
                                                                     slotmaster_usewide AS LMWIDE,
-                                                                    CONCAT(slotmaster_level, slotmaster_tier, slotmaster_dimgroup, slotmaster_dimgroup, slotmaster_distance) AS EMPTYGRID,
+                                                                    CONCAT(slotmaster_level, slotmaster_tier, slotmaster_dimgroup, cast(slotmaster_usedeep as UNSIGNED), slotmaster_distance) AS EMPTYGRID,
                                                                     slotmaster_distance,
                                                                     slotmaster_usecube AS LMVOL9
                                                                 FROM

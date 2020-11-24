@@ -29,7 +29,10 @@ $L04GridsSQL = $conn1->prepare("SELECT
                                                                     FROM
                                                                         hep.slotmaster
                                                                     WHERE
-                                                                        slotmaster_level = '$level' AND slotmaster_tier = 'L04'
+                                                                        slotmaster_level = '$level' AND slotmaster_tier = 'L04' and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
                                                                     GROUP BY slotmaster_dimgroup ,  slotmaster_usehigh , slotmaster_usedeep , slotmaster_usewide , slotmaster_usecube
                                                                     ORDER BY  slotmaster_usecube");
 $L04GridsSQL->execute();
@@ -99,12 +102,19 @@ $L04sql = $conn1->prepare("SELECT DISTINCT
                                                                     LEFT JOIN
                                                                 hep.pkgu_percent ON PERC_ITEM = A.ITEM
                                                                 JOIN hep.slotmaster on slotmaster_loc = D.loc_location
+                                                                JOIN hep.item_maxvol on A.ITEM = maxvol_item
                                                             WHERE
                                                                 A.PKTYPE ='LSE'
                                                                     AND F.ITEM_NUMBER IS NULL
                                                                     AND slotmaster_tier IN ('L01' , 'L02', 'L04', 'L06')
                                                                     AND slotmaster_level = '$level'
                                                                     AND (PERC_PKGTYPE = 'LSE' or PERC_PKGTYPE is null)
+                                                                    and slotmaster_usecube = maxvol_vol
+                                                                    and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
+                                                                     and slotmaster_block not in ('S', 'N')
                                                             ORDER BY DLY_CUBE_VEL DESC, DAILYPICK desc");
 $L04sql->execute();
 $L04array = $L04sql->fetchAll(pdo::FETCH_ASSOC);

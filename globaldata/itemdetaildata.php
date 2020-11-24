@@ -64,12 +64,12 @@ FROM
         JOIN
     hep.optimalbay B ON A.ITEM_NUMBER = B.OPT_ITEM
         JOIN
-    hep.item_location ON A.ITEM_NUMBER = loc_item
+    hep.item_location ON A.ITEM_NUMBER = loc_item and loc_location = A.CUR_LOCATION
         JOIN
     hep.slottingscore E ON E.SCORE_ITEM = A.ITEM_NUMBER
 WHERE
     ITEM_NUMBER = $var_item
-        AND PACKAGE_TYPE = 'LSE'");
+        AND PACKAGE_TYPE = 'LSE' LIMIT 1");
 $itemdetail_loose->execute();
 $itemdetailarray_loose = $itemdetail_loose->fetchAll(pdo::FETCH_ASSOC);
 
@@ -136,7 +136,7 @@ foreach ($itemdetailarray_loose as $key => $value) {
                                 <!-- List group -->
                                 <div class="list-group">
                                     <div class="list-group-item"> 
-                                        <span class="pull-right"><strong><i id="moveauditclicklse" class="fa fa-question-circle moveauditclick" style="cursor: pointer; text-decoration: none;"></i><?php echo '  ' . intval($itemdetailarray_loose[$key]['CURRENT_IMPMOVES'] * 253) ?></strong></span> 
+                                        <span class="pull-right"><strong><?php echo '  ' . intval($itemdetailarray_loose[$key]['CURRENT_IMPMOVES'] * 253) ?></strong></span> 
                                         Current Yearly Moves
                                     </div>
                                     <div class="list-group-item"> 
@@ -256,11 +256,11 @@ foreach ($itemdetailarray_loose as $key => $value) {
                                         </div>
                                         <div class="col-md-6">
                                             <div class="list-group-item"> 
-                                                <span class="pull-right"><strong><?php echo $itemdetailarray_loose[$key]['LMTIER'] ?></strong></span> 
+                                                <span class="pull-right"><strong><i id="tierdescclick" class="fa fa-question-circle tierdescclick" style="cursor: pointer; text-decoration: none;"></i><?php echo '  ' .  $itemdetailarray_loose[$key]['LMTIER'] ?></strong></span> 
                                                 Current Tier
                                             </div>
                                             <div class="list-group-item"> 
-                                                <span class="pull-right"><strong><?php echo $itemdetailarray_loose[$key]['SUGGESTED_TIER'] ?></strong></span> 
+                                                <span class="pull-right"><strong><i id="tierdescclick" class="fa fa-question-circle tierdescclick" style="cursor: pointer; text-decoration: none;"></i><?php echo '  ' .  $itemdetailarray_loose[$key]['SUGGESTED_TIER'] ?></strong></span> 
                                                 Suggested Tier
                                             </div>
                                             <div class="list-group-item"> 

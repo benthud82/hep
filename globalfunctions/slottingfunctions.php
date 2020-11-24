@@ -377,6 +377,18 @@ function _class_plus_minus($MCCLASS) {
     return $MCCLASS;
 }
 
+function _AcceptBayFunction_hep($startbay) {
+    switch ($startbay) {
+        case 0:
+            $BAY_array = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14);
+            break;
+        default:
+            $BAY_array = array($startbay, $startbay - 1, $startbay + 1, $startbay - 2, $startbay + 2, $startbay - 3, $startbay + 3, $startbay - 4, $startbay + 4, $startbay - 5, $startbay + 5);
+            break;
+    }
+    return $BAY_array;
+}
+
 function _AcceptBayFunction($startbay) {
     switch ($startbay) {
         case 0:
@@ -549,6 +561,7 @@ function _reslotrecommendation($CurrCostTotal, $CurrCostWalk, $CurrCostReplen, $
         return $finalrecommendation;
     }
 
+    //if walk score is still 0, but there is a walk 
 //case when all adjusted costs are blank
     if ($MaxAdjCost == '-' && $PerfSlotCostTotal == '-' && $Level1CostTotal == '-' && $ImpMCCostTotal == '-' && $ImpGRID5ScoreTotal == '-') {
         $finalrecommendation['TEXT'] = 'Nothing can be done';
@@ -1674,13 +1687,18 @@ function _walkcost_case2($currfeet, $shouldfeet, $dailypicks) {
 }
 
 function _tiercalc($fixt, $stor, $loc, $desc) {
+    $fixtstor = $fixt . $stor;
+    if ($fixtstor == 'PALST') {
+        $tier = 'L01';
+        return $tier;
+    }
 
     if ($desc == 'SD1' && strlen($loc) == 7) {
         $tier = 'L02';
         return $tier;
     }
 
-    $fixtstor = $fixt . $stor;
+
 
     switch ($fixtstor) {
         case 'PALST':
@@ -1752,4 +1770,219 @@ function _baycalc($loc, $tier) {
     }
     //returns array of both the bay and the walkbay
     return $baycalc;
+}
+
+function _walkred($currpicks, $newmeters, $currentmeters) {
+    $currentwalk = $currpicks * $currentmeters;
+    $newwalk = $currpicks * $newmeters;
+    $walkred = $currentwalk - $newwalk;
+    return $walkred;
+}
+
+function _reslotrecommendation_hep($CurrCostTotal, $CurrCostWalk, $CurrCostReplen, $MaxAdjCost, $PerfSlotCostTotal, $PerfSlotCostWalk, $PerfSlotCostReplen, $Level1CostTotal, $Level1CostWalk, $Level1CostReplen, $ImpMCCostTotal, $ImpMCCostWalk, $ImpMCCostReplen, $settingscheck, $ImpGRID5ScoreTotal, $ImpGRID5ScoreWalk, $ImpGRID5ScoreReplen, $walkred) {
+
+//scenario number descriptions
+// 0 - Nothing can be done
+// 1 - Adjust Max
+// 2 - Perfect Slot
+// 3 - 1-Level Slot
+// 4 - Imperfect MC
+// 5 - Imperfect GRID5
+
+    $finalrecommendation = array();
+
+//settings check is set
+    if ($settingscheck == 999) {
+        $finalrecommendation['TEXT'] = 'Verify Slotting Settings';
+        $finalrecommendation['CostSavingsTotal'] = 'N/A';  //Assume perfect slotting cost can be obtained since it is in the correct grid5
+        $finalrecommendation['CostSavingsWalk'] = 'N/A';
+        $finalrecommendation['CostSavingsReplen'] = 'N/A';
+        $finalrecommendation['Scenario'] = 999;
+        return $finalrecommendation;
+    }
+
+    //if walk score is still 0, but there is a walk 
+    if ($MaxAdjCost == '-' && $PerfSlotCostTotal == '-' && $Level1CostTotal == '-' && $ImpMCCostTotal == '-' && $ImpGRID5ScoreTotal == '-' && $walkred > 25) {
+        $finalrecommendation['TEXT'] = 'Imperfect Bay Found';
+        $finalrecommendation['CostSavingsTotal'] = $ImpMCCostTotal - $CurrCostTotal;
+        $finalrecommendation['CostSavingsWalk'] = $ImpMCCostWalk - $CurrCostWalk;
+        $finalrecommendation['CostSavingsReplen'] = $ImpMCCostReplen - $CurrCostReplen;
+        $finalrecommendation['Scenario'] = 4;
+        return $finalrecommendation;
+    }
+
+//case when all adjusted costs are blank
+    if ($MaxAdjCost == '-' && $PerfSlotCostTotal == '-' && $Level1CostTotal == '-' && $ImpMCCostTotal == '-' && $ImpGRID5ScoreTotal == '-') {
+        $finalrecommendation['TEXT'] = 'Nothing can be done';
+        $finalrecommendation['CostSavingsTotal'] = 0;
+        $finalrecommendation['CostSavingsWalk'] = 0;
+        $finalrecommendation['CostSavingsReplen'] = 0;
+        $finalrecommendation['Scenario'] = 0;
+        return $finalrecommendation;
+    }
+
+//case when perfect slot is available and cannot adjust max
+    if ($PerfSlotCostTotal <> '-' && $MaxAdjCost == '-') {
+        $finalrecommendation['TEXT'] = 'Perfect Slot Found';
+        $finalrecommendation['CostSavingsTotal'] = $PerfSlotCostTotal - $CurrCostTotal;
+        $finalrecommendation['CostSavingsWalk'] = $PerfSlotCostWalk - $CurrCostWalk;
+        $finalrecommendation['CostSavingsReplen'] = $PerfSlotCostReplen - $CurrCostReplen;
+        $finalrecommendation['Scenario'] = 2;
+        return $finalrecommendation;
+    }
+
+//case when Level 1 swap slot is available and cannot adjust max
+    if ($Level1CostTotal <> '-' && $MaxAdjCost == '-') {
+        $finalrecommendation['TEXT'] = 'Level 1 Swap Found';
+        $finalrecommendation['CostSavingsTotal'] = $Level1CostTotal - $CurrCostTotal;
+        $finalrecommendation['CostSavingsWalk'] = $Level1CostWalk - $CurrCostWalk;
+        $finalrecommendation['CostSavingsReplen'] = $Level1CostReplen - $CurrCostReplen;
+        $finalrecommendation['Scenario'] = 3;
+        return $finalrecommendation;
+    }
+
+//case when Imp_MC slot is available and cannot adjust max
+    if ($ImpMCCostTotal <> '-' && $MaxAdjCost == '-') {
+        $finalrecommendation['TEXT'] = 'Imperfect Bay Found';
+        $finalrecommendation['CostSavingsTotal'] = $ImpMCCostTotal - $CurrCostTotal;
+        $finalrecommendation['CostSavingsWalk'] = $ImpMCCostWalk - $CurrCostWalk;
+        $finalrecommendation['CostSavingsReplen'] = $ImpMCCostReplen - $CurrCostReplen;
+        $finalrecommendation['Scenario'] = 4;
+        return $finalrecommendation;
+    }
+
+//case when Imp_GRID5 slot is available and cannot adjust max
+    if ($ImpGRID5ScoreTotal <> '-' && $MaxAdjCost == '-') {
+        $finalrecommendation['TEXT'] = 'Imperfect Grid5 Found';
+        $finalrecommendation['CostSavingsTotal'] = $ImpGRID5ScoreTotal - $CurrCostTotal;
+        $finalrecommendation['CostSavingsWalk'] = $ImpGRID5ScoreWalk - $CurrCostWalk;
+        $finalrecommendation['CostSavingsReplen'] = $ImpGRID5ScoreReplen - $CurrCostReplen;
+        $finalrecommendation['Scenario'] = 5;
+        return $finalrecommendation;
+    }
+
+//case when max adj cost is within 10% of Perf slot cost, use max adjust cost
+    if ($PerfSlotCostTotal <> '-' && $MaxAdjCost <> '-') {
+        if ($PerfSlotCostTotal >= .99) {
+            $finalrecommendation['TEXT'] = 'Perfect Slot Found';
+            $finalrecommendation['CostSavingsTotal'] = $PerfSlotCostTotal - $CurrCostTotal;
+            $finalrecommendation['CostSavingsWalk'] = $PerfSlotCostWalk - $CurrCostWalk;
+            $finalrecommendation['CostSavingsReplen'] = $PerfSlotCostReplen - $CurrCostReplen;
+            $finalrecommendation['Scenario'] = 2;
+            return $finalrecommendation;
+        } elseif ($MaxAdjCost > $PerfSlotCostReplen && ($PerfSlotCostReplen / $MaxAdjCost) >= .9) {  //change to ">" for max adjust cost on 1/5/17
+            $finalrecommendation['TEXT'] = 'Adjust loc max';
+            $finalrecommendation['CostSavingsTotal'] = $MaxAdjCost - $CurrCostReplen;
+            $finalrecommendation['CostSavingsWalk'] = 0;
+            $finalrecommendation['CostSavingsReplen'] = $MaxAdjCost - $CurrCostReplen;
+            $finalrecommendation['Scenario'] = 1;
+            return $finalrecommendation;
+        } else {
+            $finalrecommendation['TEXT'] = 'Perfect Slot Found';
+            $finalrecommendation['CostSavingsTotal'] = $PerfSlotCostTotal - $CurrCostTotal;
+            $finalrecommendation['CostSavingsWalk'] = $PerfSlotCostWalk - $CurrCostWalk;
+            $finalrecommendation['CostSavingsReplen'] = $PerfSlotCostReplen - $CurrCostReplen;
+            $finalrecommendation['Scenario'] = 2;
+            return $finalrecommendation;
+        }
+    }
+
+//case when max adj cost is within 10% of Level1 slot cost, use max adjust cost
+    if ($Level1CostTotal <> '-' && $MaxAdjCost <> '-') {
+        if ($Level1CostTotal >= .99) {
+            $finalrecommendation['TEXT'] = 'Level 1 Swap Found';
+            $finalrecommendation['CostSavingsTotal'] = $Level1CostTotal - $CurrCostTotal;
+            $finalrecommendation['CostSavingsWalk'] = $Level1CostWalk - $CurrCostWalk;
+            $finalrecommendation['CostSavingsReplen'] = $Level1CostReplen - $CurrCostReplen;
+            $finalrecommendation['Scenario'] = 3;
+            return $finalrecommendation;
+        } elseif ($MaxAdjCost > $Level1CostTotal && ($MaxAdjCost / $Level1CostReplen) >= .9) {  //change to ">" for max adjust cost on 1/5/17
+            $finalrecommendation['TEXT'] = 'Adjust loc max';
+            $finalrecommendation['CostSavingsTotal'] = $MaxAdjCost - $CurrCostReplen;
+            $finalrecommendation['CostSavingsWalk'] = 0;
+            $finalrecommendation['CostSavingsReplen'] = $MaxAdjCost - $CurrCostReplen;
+            $finalrecommendation['Scenario'] = 1;
+            return $finalrecommendation;
+        } else {
+            $finalrecommendation['TEXT'] = 'Level 1 Swap Found';
+            $finalrecommendation['CostSavingsTotal'] = $Level1CostTotal - $CurrCostTotal;
+            $finalrecommendation['CostSavingsWalk'] = $Level1CostWalk - $CurrCostWalk;
+            $finalrecommendation['CostSavingsReplen'] = $Level1CostReplen - $CurrCostReplen;
+            $finalrecommendation['Scenario'] = 3;
+            return $finalrecommendation;
+        }
+    }
+
+
+//case when max adj cost is within 10% of Imp_MC slot cost, use max adjust cost
+    if ($ImpMCCostTotal <> '-' && $MaxAdjCost <> '-') {
+        if ($ImpMCCostTotal >= .99) {
+            $finalrecommendation['TEXT'] = 'Imperfect Bay Found';
+            $finalrecommendation['CostSavingsTotal'] = $ImpMCCostTotal - $CurrCostTotal;
+            $finalrecommendation['CostSavingsWalk'] = $ImpMCCostWalk - $CurrCostWalk;
+            $finalrecommendation['CostSavingsReplen'] = $ImpMCCostReplen - $CurrCostReplen;
+            $finalrecommendation['Scenario'] = 4;
+            return $finalrecommendation;
+        } elseif ($MaxAdjCost > $ImpMCCostReplen && ($MaxAdjCost / $ImpMCCostReplen) >= .9) {  //change to ">" for max adjust cost on 1/5/17
+            $finalrecommendation['TEXT'] = 'Adjust loc max';
+            $finalrecommendation['CostSavingsTotal'] = $MaxAdjCost - $CurrCostReplen;
+            $finalrecommendation['CostSavingsWalk'] = 0;
+            $finalrecommendation['CostSavingsReplen'] = $MaxAdjCost - $CurrCostReplen;
+            $finalrecommendation['Scenario'] = 1;
+            return $finalrecommendation;
+        } else {
+            $finalrecommendation['TEXT'] = 'Imperfect Bay Found';
+            $finalrecommendation['CostSavingsTotal'] = $ImpMCCostTotal - $CurrCostTotal;
+            $finalrecommendation['CostSavingsWalk'] = $ImpMCCostWalk - $CurrCostWalk;
+            $finalrecommendation['CostSavingsReplen'] = $ImpMCCostReplen - $CurrCostReplen;
+            $finalrecommendation['Scenario'] = 4;
+            return $finalrecommendation;
+        }
+    }
+
+//case when max adj cost is within 10% of Imp_GRID5 slot cost, use max adjust cost
+    if ($ImpGRID5ScoreTotal <> '-' && $MaxAdjCost <> '-') {
+        if ($ImpGRID5ScoreTotal >= .99) {
+            $finalrecommendation['TEXT'] = 'Imperfect Grid5 Found';
+            $finalrecommendation['CostSavingsTotal'] = $ImpGRID5ScoreTotal - $CurrCostTotal;
+            $finalrecommendation['CostSavingsWalk'] = $ImpGRID5ScoreWalk - $CurrCostWalk;
+            $finalrecommendation['CostSavingsReplen'] = $ImpGRID5ScoreReplen - $CurrCostReplen;
+            $finalrecommendation['Scenario'] = 5;
+            return $finalrecommendation;
+        } elseif ($MaxAdjCost > $ImpGRID5ScoreReplen && ($MaxAdjCost / $ImpGRID5ScoreReplen) >= .9) {  //change to ">" for max adjust cost on 1/5/17
+            $finalrecommendation['TEXT'] = 'Adjust loc max';
+            $finalrecommendation['CostSavingsTotal'] = $MaxAdjCost - $CurrCostReplen;
+            $finalrecommendation['CostSavingsWalk'] = 0;
+            $finalrecommendation['CostSavingsReplen'] = $MaxAdjCost - $CurrCostReplen;
+            $finalrecommendation['Scenario'] = 1;
+            return $finalrecommendation;
+        } else {
+            $finalrecommendation['TEXT'] = 'Imperfect Grid5 Found';
+            $finalrecommendation['CostSavingsTotal'] = $ImpGRID5ScoreTotal - $CurrCostTotal;
+            $finalrecommendation['CostSavingsWalk'] = $ImpGRID5ScoreWalk - $CurrCostWalk;
+            $finalrecommendation['CostSavingsReplen'] = $ImpGRID5ScoreReplen - $CurrCostReplen;
+            $finalrecommendation['Scenario'] = 5;
+            return $finalrecommendation;
+        }
+    }
+
+
+//case when only max can be adjusted.
+//KEEP AS LAST CASE!!
+    if ($PerfSlotCostTotal == '-' && $Level1CostTotal == '-' && $ImpGRID5ScoreTotal == '-' && $ImpMCCostTotal == '-' && $MaxAdjCost > $CurrCostTotal) {
+        $finalrecommendation['TEXT'] = 'Adjust loc max';
+        $finalrecommendation['CostSavingsTotal'] = $MaxAdjCost - $CurrCostReplen;
+        $finalrecommendation['CostSavingsWalk'] = 0;
+        $finalrecommendation['CostSavingsReplen'] = $MaxAdjCost - $CurrCostReplen;
+        $finalrecommendation['Scenario'] = 1;
+        return $finalrecommendation;
+    }
+
+    if (!isset($finalrecommendation['TEXT'])) {
+        $finalrecommendation['TEXT'] = 'Logic Malfunction';
+        $finalrecommendation['Scenario'] = 'Logic Malfunction';
+        $finalrecommendation['CostSavingsTotal'] = 0;
+    }
+
+    return $finalrecommendation;
 }

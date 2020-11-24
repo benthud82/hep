@@ -51,7 +51,7 @@
                                 <th>Whse</th>
                                 <th>Item</th>
                                 <th>Location</th>
-                                <th>Additional Feet</th>
+                                <th>Additional Meters</th>
                                 <th>DSLS</th>
                                 <th>ADBS</th>
                                 <th>Current Grid5</th>
@@ -69,6 +69,7 @@
                                 <th>Replen Score</th>
                                 <th>Walk Score</th>
                                 <th>Total Score</th>
+                                <th>Primary Count</th>
                             </tr>
                         </thead>
                     </table>

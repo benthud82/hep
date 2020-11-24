@@ -15,7 +15,7 @@ $IMPERF_MC_GRID5 = $TOP_REPLEN_COST_array[$topcostkey]['SUGGESTED_GRID5'];
 $IMPERF_MC_DEEP = $TOP_REPLEN_COST_array[$topcostkey]['SUGGESTED_DEPTH'];
 
 
-$acceptablebays = _AcceptBayFunction($OPT_OPTBAY); //No longer MC but based of Jeromy's bay structure
+$acceptablebays = _AcceptBayFunction_hep($OPT_OPTBAY); //No longer MC but based of Jeromy's bay structure
 
 
 foreach ($acceptablebays as $value_l2) {
@@ -24,14 +24,14 @@ foreach ($acceptablebays as $value_l2) {
     $IMPERFECT_MC_key = array_search($IMPERFMC, array_column($EMPTYLOC_array, 'KEYVAL'));
 
     if ($IMPERFECT_MC_key <> FALSE) { //a perfect grid match has been found.  Set as new location
-        $IMPERFECT_MC_NEW_LOC = $EMPTYLOC_array[$IMPERFECT_MC_key]['LOCATION'];
+        $IMPERFECT_MC_NEW_LOC = $EMPTYLOC_array[$IMPERFECT_MC_key]['slotmaster_loc'];
         $displayarray[$topcostkey]['IMPERFECT_MC_SLOT_LOC'] = $IMPERFECT_MC_NEW_LOC;
-        $IMPERFECT_MC_NEW_GRD5 = $EMPTYLOC_array[$IMPERFECT_MC_key]['DIMGROUP'];
+        $IMPERFECT_MC_NEW_GRD5 = $EMPTYLOC_array[$IMPERFECT_MC_key]['slotmaster_dimgroup'];
         $displayarray[$topcostkey]['AssgnGrid5'] = $IMPERFECT_MC_NEW_GRD5; //Add new grid5 to display array
-        $NEW_GRD_HGT = $EMPTYLOC_array[$IMPERFECT_MC_key]['HIGH'];
-        $NEW_GRD_DPT = $EMPTYLOC_array[$IMPERFECT_MC_key]['DEEP'];
-        $NEW_GRD_WDT = $EMPTYLOC_array[$IMPERFECT_MC_key]['WIDE'];
-        $imperfectbay = $EMPTYLOC_array[$IMPERFECT_MC_key]['WALKFEET'];
+        $NEW_GRD_HGT = $EMPTYLOC_array[$IMPERFECT_MC_key]['slotmaster_usehigh'];
+        $NEW_GRD_DPT = $EMPTYLOC_array[$IMPERFECT_MC_key]['slotmaster_usedeep'];
+        $NEW_GRD_WDT = $EMPTYLOC_array[$IMPERFECT_MC_key]['slotmaster_usewide'];
+        $imperfectbay = $EMPTYLOC_array[$IMPERFECT_MC_key]['slotmaster_distance'];
 
 
         $caseoreachTF = _caseoreachtf($IMPERF_MC_TIER); //call function to determine which TF function to access.  Using the tier of the empty grid to determine which tf (case or each) to use
@@ -59,12 +59,15 @@ foreach ($acceptablebays as $value_l2) {
             $walk_score_imperfectMC = $walk_score_imperfectMC_array['WALK_SCORE'];
         } else {
             $walk_score_imperfectMC = _walkscore($value_l2, $OPT_OPTBAY, $TOP_REPLEN_COST_array[$topcostkey]['AVG_DAILY_PICK']);
+            $walkreduction = _walkred($TOP_REPLEN_COST_array[$topcostkey]['AVG_DAILY_PICK'], $value_l2, $OPT_CURRBAY);
+            
         }
 
 
         $displayarray[$topcostkey]['AFTER_IMPERFECT_MC_SLOT_MOVES'] = $impmoves_after_imperfectMC;
         $displayarray[$topcostkey]['MOVESCORE_AFTER_IMPERFECT_MC'] = abs($replen_score_imperfectMC);
         $displayarray[$topcostkey]['WALKSCORE_AFTER_IMPERFECT_MC'] = abs($walk_score_imperfectMC);
+        $displayarray[$topcostkey]['WALKRED_IMPERFECTMC'] = $walkreduction;
         $displayarray[$topcostkey]['TOTSCORE_AFTER_IMPERFECT_MC'] = abs($replen_score_imperfectMC) * abs($walk_score_imperfectMC);
 
 
@@ -76,5 +79,6 @@ foreach ($acceptablebays as $value_l2) {
         $displayarray[$topcostkey]['MOVESCORE_AFTER_IMPERFECT_MC'] = '-';
         $displayarray[$topcostkey]['WALKSCORE_AFTER_IMPERFECT_MC'] = '-';
         $displayarray[$topcostkey]['TOTSCORE_AFTER_IMPERFECT_MC'] = '-';
+        $displayarray[$topcostkey]['WALKRED_IMPERFECTMC'] = 0;
     }
 }

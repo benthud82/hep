@@ -48,17 +48,29 @@ $dopoundsql = $conn1->prepare("SELECT DISTINCT
                                                                 CONCAT(CAST(E.SCORE_WALKSCORE * 100 AS DECIMAL (5 , 2 )),
                                                                         '%'),
                                                                 CONCAT(CAST(E.SCORE_TOTALSCORE * 100 AS DECIMAL (5 , 2 )),
-                                                                        '%')
+                                                                        '%'),
+                                                                (SELECT 
+                                                                        COUNT(*) AS LOC_COUNT
+                                                                    FROM
+                                                                        hep.item_location
+                                                                    WHERE
+                                                                        loc_item = A.ITEM_NUMBER) AS LOC_COUNT
                                                             FROM
                                                                 hep.my_npfmvc A
                                                                     JOIN
                                                                 hep.optimalbay B ON A.ITEM_NUMBER = B.OPT_ITEM
                                                                    JOIN
                                                                 hep.slottingscore E ON E.SCORE_ITEM = A.ITEM_NUMBER
+                                                                JOIN hep.slotmaster on slotmaster_loc = CUR_LOCATION
                                                                 WHERE
                                                                 A.SUGGESTED_TIER = 'L04'
                                                                     and PACKAGE_TYPE =  'LSE'
                                                                     and CUR_LEVEL = '$var_level'
+                                                                        and A.DAYS_FRM_SLE <= 25
+                                                                         and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
                                                                     AND $whercaluse
                                                                     ORDER BY $orderby");
 $dopoundsql->execute();

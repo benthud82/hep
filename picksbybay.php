@@ -17,7 +17,7 @@
                                     FROM
                                         hep.picksbybay
                                     WHERE
-                                        picksbybay_WHSE = $var_whse
+                                        picksbybay_WHSE = '$var_whse'
                                     ORDER BY picksbybay_DATE;");
     $datesqlall->execute();
     $datesqlallarray = $datesqlall->fetchAll(pdo::FETCH_ASSOC);
@@ -30,7 +30,7 @@
                                 FROM
                                     hep.picksbybay
                                 WHERE
-                                    picksbybay_WHSE = $var_whse;");
+                                    picksbybay_WHSE = '$var_whse';");
     $datesql->execute();
     $datesqlarary = $datesql->fetchAll(pdo::FETCH_ASSOC);
     $today = $datesqlarary[0]['recentdate'];

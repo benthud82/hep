@@ -8,8 +8,8 @@ include_once '../globalfunctions/slottingfunctions.php';
 include_once '../../globalfunctions/newitem.php';
 
 $var_userid = $_POST['userid'];
-if(isset($_POST['levelsel'])){
-$var_levelsel = $_POST['levelsel'];
+if (isset($_POST['levelsel'])) {
+    $var_levelsel = $_POST['levelsel'];
 } else {
     $var_levelsel = '%';
 }
@@ -17,12 +17,18 @@ $var_whse = 'HEP';
 
 if (isset($_POST['returncount'])) {  //user came from loose slotting module
     $returncount = $_POST['returncount'];
+    $sqlreturn = $returncount * 3;
     $zone = $_POST['zone'];
-    $itemnumsql = ' ';
+    $itemnumsql = "                                                            AND A.LMTIER <> 'L01'
+                                                            AND A.SUGGESTED_DEPTH < 1200
+                                                            AND NBR_SHIP_OCC >= 15
+                                                            AND DAYS_FRM_SLE <= 15
+                                                            AND A.SUGGESTED_TIER <> 'L01' ";
 }
 
 if (isset($_POST['itemnum'])) {  //user came from slotting assist module
     $returncount = 1;
+    $sqlreturn = $returncount;
     $zone = 'LSE';
     $itemnum = intval($_POST['itemnum']);
     $itemnumsql = ' and A.ITEM_NUMBER = ' . $itemnum;
@@ -31,6 +37,7 @@ if (isset($_POST['itemnum'])) {  //user came from slotting assist module
 
 $avg_score_inc = 0;
 $displayarray = array();  //initiate array
+$count = 0;
 //include file to return highest cost items by Whse and Tier.  Will loop through these items.  Start with top 10.
 
 include_once 'highscorearray_LSE.php';
@@ -38,16 +45,24 @@ include_once 'highscorearray_LSE.php';
 
 //include empty location file from NPFLSM.  Put into array $NPFLSM_array.
 include_once 'emptylocdata.php';
-
+$useditemarray = array();
 //include empty grids data.  Just array of available empty grids by fixture MC
 //include_once 'emptygridsdata.php';
 //Loop through $TOP_REPLEN_COST_array to determine appropriate course of action
 foreach ($TOP_REPLEN_COST_array as $topcostkey => $topvalue) {
-
+    if ($count >= $returncount) {
+        break;
+    }
 
     $settingscheck = 0; //initiate settings check
     $LEVEL_ONE_match_key = $IMPERFECT_MC_key = $IMPERFECT_GRID5_key = FALSE;
-    $var_itemcode = $TOP_REPLEN_COST_array[$topcostkey]['ITEM_NUMBER']; //variable for include files
+    $var_itemcode = intval($TOP_REPLEN_COST_array[$topcostkey]['ITEM_NUMBER']); //variable for include files
+
+
+    if (in_array($var_itemcode, $useditemarray)) {
+        continue;
+    }
+    $useditemarray[] = $var_itemcode;
     $var_location = $TOP_REPLEN_COST_array[$topcostkey]['CUR_LOCATION']; //variable for include files
 
     $displayarray[$topcostkey]['ITEM_NUMBER'] = $var_itemcode; //add info to display array
@@ -162,9 +177,9 @@ foreach ($TOP_REPLEN_COST_array as $topcostkey => $topvalue) {
     $perfect_match_key = array_search($PERFGRID, array_column($EMPTYLOC_array, 'KEYVAL'));
 //    $perfect_match_key = FALSE;
     if ($perfect_match_key !== FALSE) { //a perfect grid match has been found.  Set as new location
-        $NEW_LOC = $EMPTYLOC_array[$perfect_match_key]['LOCATION'];
+        $NEW_LOC = $EMPTYLOC_array[$perfect_match_key]['slotmaster_loc'];
         $displayarray[$topcostkey]['PERF_SLOT_LOC'] = $NEW_LOC;
-        $NEW_GRD5 = $EMPTYLOC_array[$perfect_match_key]['DIMGROUP'];
+        $NEW_GRD5 = $EMPTYLOC_array[$perfect_match_key]['slotmaster_dimgroup'];
         $displayarray[$topcostkey]['AssgnGrid5'] = $NEW_GRD5; //Add new grid5 to display array
         $NEW_LOC_TRUEFIT_round2 = $TOP_REPLEN_COST_array[$topcostkey]['SUGGESTED_MAX'];
         $Newmin = _minloc($NEW_LOC_TRUEFIT_round2, $TOP_REPLEN_COST_array[$topcostkey]['SHIP_QTY_MN'], $TOP_REPLEN_COST_array[$topcostkey]['CPCCPKU']);
@@ -209,6 +224,7 @@ foreach ($TOP_REPLEN_COST_array as $topcostkey => $topvalue) {
         $displayarray[$topcostkey]['MOVESCORE_AFTER_IMPERFECT_MC'] = '-';
         $displayarray[$topcostkey]['WALKSCORE_AFTER_IMPERFECT_MC'] = '-';
         $displayarray[$topcostkey]['TOTSCORE_AFTER_IMPERFECT_MC'] = '-';
+        $displayarray[$topcostkey]['WALKRED_IMPERFECTMC'] = 0;
     }
 //******END OF STEP 3*******
 //STEP 4: Is there an imperfect grid5 in perfect MC
@@ -251,15 +267,17 @@ foreach ($TOP_REPLEN_COST_array as $topcostkey => $topvalue) {
     $ImpMCScoreTotal = $displayarray[$topcostkey]['TOTSCORE_AFTER_IMPERFECT_MC'];
     $ImpMCScoreWalk = $displayarray[$topcostkey]['WALKSCORE_AFTER_IMPERFECT_MC'];
     $ImpMCScoreReplen = $displayarray[$topcostkey]['MOVESCORE_AFTER_IMPERFECT_MC'];
+    $walkred = $displayarray[$topcostkey]['WALKRED_IMPERFECTMC'];
 
 
-    $finalrec = _reslotrecommendation(abs($CurrScoreTotal), abs($CurrScoreWalk), abs($CurrScoreReplen), abs($MaxScoreReplen), abs($PerfScoreTotal), abs($PerfScoreWalk), abs($PerfScoreReplen), abs($Level1ScoreTotal), abs($Level1ScoreWalk), abs($Level1ScoreReplen), abs($ImpMCScoreTotal), abs($ImpMCScoreWalk), abs($ImpMCScoreReplen), abs($settingscheck), abs($ImpGRID5ScoreTotal), abs($ImpGRID5ScoreWalk), abs($ImpGRID5ScoreReplen));
+    $finalrec = _reslotrecommendation_hep(abs($CurrScoreTotal), abs($CurrScoreWalk), abs($CurrScoreReplen), abs($MaxScoreReplen), abs($PerfScoreTotal), abs($PerfScoreWalk), abs($PerfScoreReplen), abs($Level1ScoreTotal), abs($Level1ScoreWalk), abs($Level1ScoreReplen), abs($ImpMCScoreTotal), abs($ImpMCScoreWalk), abs($ImpMCScoreReplen), abs($settingscheck), abs($ImpGRID5ScoreTotal), abs($ImpGRID5ScoreWalk), abs($ImpGRID5ScoreReplen), $walkred);
     $displayarray[$topcostkey]['RecText'] = $finalrec['TEXT'];
     $displayarray[$topcostkey]['FinalSavings'] = $finalrec['CostSavingsTotal'];
     $displayarray[$topcostkey]['ReslotScenario'] = $finalrec['Scenario'];
     if (is_numeric($finalrec['CostSavingsTotal'])) {
         $avg_score_inc += $finalrec['CostSavingsTotal'];
     }
+    $count += 1;
 } //end of master loop
 
 $avg_score_inc = $avg_score_inc / ($topcostkey + 1);
@@ -290,12 +308,12 @@ Need to add right borders to main info to include other pertinent info-->
                             </div>
                             <div class="col-sm-3 text-center" style="padding-bottom: 5px;">
                                 <div class="col-sm-12 h3" style="padding-bottom: 5px;"> <?php
-                                    if ($displayarray[$key2]['FinalSavings'] == 'N/A') {
-                                        echo 'N/A';
-                                    } else {
-                                        echo number_format($displayarray[$key2]['FinalSavings'] * 100, 2) . '%';
-                                    }
-                                    ?><i class="fa fa-chevron-circle-down clicktotoggle-chevron-test" style="float: right; cursor: pointer;"></i></div> 
+                if ($displayarray[$key2]['FinalSavings'] == 'N/A') {
+                    echo 'N/A';
+                } else {
+                    echo number_format($displayarray[$key2]['FinalSavings'] * 100, 2) . '%';
+                }
+                ?><i class="fa fa-chevron-circle-down clicktotoggle-chevron-test" style="float: right; cursor: pointer;"></i></div> 
                                 <div class="col-sm-12 text-muted h5" style="padding-bottom: 0px;">Score Increase</div>
                             </div>
                         </div>
@@ -310,11 +328,11 @@ Need to add right borders to main info to include other pertinent info-->
                                     <div class="row">
                                         <div class="col-sm-4 bordered">
                                             <!--SECTION 1-->
-                                            <?php include 'reslotdetailbynumber.php'; // include file to determine detail how to obtain cost savings based on returned number from $finalrecommendation array from the _reslotrecommendation in the slottingfunctions.php file               ?>
+                                            <?php include 'reslotdetailbynumber.php'; // include file to determine detail how to obtain cost savings based on returned number from $finalrecommendation array from the _reslotrecommendation in the slottingfunctions.php file                ?>
                                         </div>
                                         <div class="col-sm-4 bordered">
                                             <!--SECTION 2--> 
-                                            <?php include 'costsavingsdetailbynumber.php'; // include file to determine detail how to obtain cost savings based on returned number from $finalrecommendation array from the _reslotrecommendation in the slottingfunctions.php file               ?>
+                                            <?php include 'costsavingsdetailbynumber.php'; // include file to determine detail how to obtain cost savings based on returned number from $finalrecommendation array from the _reslotrecommendation in the slottingfunctions.php file                ?>
                                         </div>
                                         <div class="col-sm-4 bordered"> 
                                             <!--SECTION 3-->

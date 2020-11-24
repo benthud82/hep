@@ -7,7 +7,7 @@ include_once '../globalfunctions/slottingfunctions.php';
 ini_set('memory_limit', '-1'); //max size 32m
 ini_set('max_execution_time', 99999);
 
-$fileglob = glob('../../ftproot/ftpde/storage_bin_HHP*.txt');  //glob wildcard searches for any file
+$fileglob = glob('../../ftproot/ftpde/storage_bin*.txt');  //glob wildcard searches for any file
 
 if (count($fileglob) > 0) {
     $filename = $fileglob[0];
@@ -35,7 +35,7 @@ $querydelete3 = $conn1->prepare($sqldelete3);
 $querydelete3->execute();
 
 //insert into slotmaster table
-$columns = 'slotmaster_branch,slotmaster_loc,slotmaster_level,slotmaster_locdesc, slotmaster_grhigh,slotmaster_grdeep,slotmaster_grwide,slotmaster_grcube,slotmaster_usehigh,slotmaster_usedeep,slotmaster_usewide,slotmaster_usecube,slotmaster_pkgu,slotmaster_pickzone,slotmaster_dimgroup,slotmaster_tier,slotmaster_fixt,slotmaster_fixt_desc,slotmaster_stor,slotmaster_stor_desc, slotmaster_distance, slotmaster_bay, slotmaster_walkbay';
+$columns = 'slotmaster_branch,slotmaster_loc,slotmaster_level,slotmaster_locdesc, slotmaster_grhigh,slotmaster_grdeep,slotmaster_grwide,slotmaster_grcube,slotmaster_usehigh,slotmaster_usedeep,slotmaster_usewide,slotmaster_usecube,slotmaster_pkgu,slotmaster_pickzone,slotmaster_dimgroup,slotmaster_tier,slotmaster_fixt,slotmaster_fixt_desc,slotmaster_stor,slotmaster_stor_desc, slotmaster_distance, slotmaster_bay, slotmaster_walkbay, slotmaster_block';
 $maxrange = 9999;
 $counter = 0;
 $rowcount = count($result);
@@ -71,18 +71,18 @@ do {
         $slotmaster_tier = _tiercalc($slotmaster_fixt, $slotmaster_stor, $slotmaster_loc, $slotmaster_locdesc);
 
         $slotmaster_bay_return = _baycalc($slotmaster_loc, $slotmaster_tier);
-           //The bay cannot be determined from the location.  Use bay_loc table to update the bay at the bottom of this update
+        //The bay cannot be determined from the location.  Use bay_loc table to update the bay at the bottom of this update
         $slotmaster_bay = ' ';
         $slotmaster_walkbay = $slotmaster_bay_return[1];
 
 
 
         //need to add locked location data here:
-
+        $slotmaster_block = $result[$counter]['BlockReason'];
 
         $data[] = "('$slotmaster_branch', '$slotmaster_loc', '$slotmaster_level', '$slotmaster_locdesc', '$slotmaster_grhigh', '$slotmaster_grdeep', '$slotmaster_grwide', '$slotmaster_grcube', "
                 . "'$slotmaster_usehigh', '$slotmaster_usedeep', '$slotmaster_usewide', '$slotmaster_usecube', '$slotmaster_pkgu', '$slotmaster_pickzone', '$slotmaster_dimgroup',  '$slotmaster_tier',"
-                . "'$slotmaster_fixt', '$slotmaster_fixt_desc', '$slotmaster_stor', '$slotmaster_stor_desc', $slotmaster_distance, '$slotmaster_bay', '$slotmaster_walkbay')";
+                . "'$slotmaster_fixt', '$slotmaster_fixt_desc', '$slotmaster_stor', '$slotmaster_stor_desc', $slotmaster_distance, '$slotmaster_bay', '$slotmaster_walkbay', '$slotmaster_block')";
         $counter += 1;
     }
 
@@ -104,7 +104,7 @@ foreach ($fileglob as $deletefile) {
 
 
 //Pull in vector map bay from bay_loc and overwrite $slotmaster_bay in the slotmaster table
-    $sqlmerge2 = "INSERT INTO hep.slotmaster  (SELECT  slotmaster_branch, 
+$sqlmerge2 = "INSERT INTO hep.slotmaster  (SELECT  slotmaster_branch, 
 slotmaster_loc,  
 slotmaster_level,
 slotmaster_locdesc, 
@@ -126,9 +126,10 @@ slotmaster_stor,
 slotmaster_stor_desc,  
 slotmaster_distance,  
 bayloc_bay,
-bayloc_walkbay
+bayloc_walkbay,
+slotmaster_block
 FROM hep.slotmaster JOIN hep.bay_location on slotmaster_loc = bayloc_loc)
                                     ON DUPLICATE KEY UPDATE 
                                     slotmaster_bay=VALUES(slotmaster_bay), slotmaster_walkbay=VALUES(slotmaster_walkbay)";
-    $querymerge2 = $conn1->prepare($sqlmerge2);
-    $querymerge2->execute();
+$querymerge2 = $conn1->prepare($sqlmerge2);
+$querymerge2->execute();

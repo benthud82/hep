@@ -111,8 +111,8 @@ foreach ($SLOT_COST_ONELEVEL_array as $key => $value) {
             $LEVEL_ONE_SWAP_NEW_GRD5 = 'C_PFR';
             $displayarray[$topcostkey]['AssgnGrid5'] = $LEVEL_ONE_SWAP_NEW_GRD5; //Add new grid5 to display array
         } else {
-            $LEVEL_ONE_SWAP_NEW_LOC = $EMPTYLOC_array[$LEVEL_ONE_match_key]['LOCATION'];
-            $LEVEL_ONE_SWAP_NEW_GRD5 = $EMPTYLOC_array[$LEVEL_ONE_match_key]['DIMGROUP'];
+            $LEVEL_ONE_SWAP_NEW_LOC = $EMPTYLOC_array[$LEVEL_ONE_match_key]['slotmaster_loc'];
+            $LEVEL_ONE_SWAP_NEW_GRD5 = $EMPTYLOC_array[$LEVEL_ONE_match_key]['slotmaster_dimgroup'];
             $displayarray[$topcostkey]['AssgnGrid5'] = $LEVEL_ONE_SWAP_NEW_GRD5; //Add new grid5 to display array
         }
 

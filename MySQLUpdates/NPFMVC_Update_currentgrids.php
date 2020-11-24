@@ -24,7 +24,7 @@ $querydelete = $conn1->prepare($sqldelete);
 $querydelete->execute();
 
 //Logic for L06 update.  Must do outside of levels loop
-include 'L06update_bycurrentgrids.php';
+//include 'L06update_bycurrentgrids.php';
 
 $whssel = 'HEP';
 $levels_array = array('A', 'B', 'C');
@@ -41,6 +41,10 @@ foreach ($levels_array as $level) {
                                                                     WHERE
                                                                         slotmaster_branch = '$whssel'
                                                                             AND slotmaster_level = '$level'
+                                                                                  and  (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
                                                                     GROUP BY slotmaster_branch , slotmaster_tier; ");  //$orderby pulled from: include 'slopecat_switch_orderby.php';
     $alltiersql->execute();
     $alltierarray = $alltiersql->fetchAll(pdo::FETCH_ASSOC);
@@ -55,6 +59,10 @@ foreach ($levels_array as $level) {
                                                                         WHERE
                                                                             slotmaster_branch = '$whssel'
                                                                                 AND slotmaster_level = '$level'
+                                                                                    and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
                                                                         GROUP BY slotmaster_branch , slotmaster_tier; ");  //$orderby pulled from: include 'slopecat_switch_orderby.php';
     $allvolumesql->execute();
     $allvolumearray = $allvolumesql->fetchAll(pdo::FETCH_ASSOC);

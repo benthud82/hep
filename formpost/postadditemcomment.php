@@ -19,7 +19,7 @@ $var_itemmodal = ($_POST['itemmodal']);
 
 
 $columns = 'itemcomments_id, itemcomments_whse, itemcomments_item, itemcomments_tsm, itemcomments_date, itemcomments_header, itemcomments_comment';
-$values = "0, $var_whse, $var_itemmodal, '$var_userid' , '$datetime', '$var_descriptionmodal', '$var_commentmodal'";
+$values = "0, '$var_whse', $var_itemmodal, '$var_userid' , '$datetime', '$var_descriptionmodal', '$var_commentmodal'";
 
 
 $sql = "INSERT INTO hep.slotting_itemcomments ($columns) VALUES ($values)";

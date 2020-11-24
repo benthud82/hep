@@ -23,7 +23,10 @@ $L02GridsSQL = $conn1->prepare("SELECT
                                                                     FROM
                                                                         hep.slotmaster
                                                                     WHERE
-                                                                        slotmaster_level = '$level' AND slotmaster_tier = 'L02'
+                                                                        slotmaster_level = '$level' AND slotmaster_tier = 'L02' and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
                                                                     GROUP BY slotmaster_dimgroup , slotmaster_distance , slotmaster_usehigh , slotmaster_usedeep , slotmaster_usewide , slotmaster_usecube
                                                                     ORDER BY slotmaster_distance , slotmaster_usecube");
 $L02GridsSQL->execute();
@@ -99,6 +102,11 @@ $L02sql = $conn1->prepare("SELECT DISTINCT
                                                                     AND slotmaster_level = '$level'
                                                                     AND PERC_PKGTYPE = 'LSE'
                                                                     AND A.DSLS <= 5
+                                                                   and  (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
+                                                                                    and slotmaster_block not in ('S', 'N')
                                                             ORDER BY DAILYPICK DESC");
 $L02sql->execute();
 $L02array = $L02sql->fetchAll(pdo::FETCH_ASSOC);

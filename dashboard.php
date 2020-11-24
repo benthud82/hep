@@ -184,13 +184,13 @@
                 
                 <!--Historical Feet per Pick graph-->
                 <section class="panel hidewrapper" id="graph_fpp" style="margin-bottom: 50px; margin-top: 20px;"> 
-                    <header class="panel-heading bg bg-inverse h2">Historical Feet Per Pick<i class="fa fa-close pull-right closehidden" style="cursor: pointer;" id="close_fpp"></i><i class="fa fa-chevron-up pull-right clicktotoggle-chevron" style="cursor: pointer;"></i></header>
+                    <header class="panel-heading bg bg-inverse h2">Historical Meters Per Pick<i class="fa fa-close pull-right closehidden" style="cursor: pointer;" id="close_fpp"></i><i class="fa fa-chevron-up pull-right clicktotoggle-chevron" style="cursor: pointer;"></i></header>
                     <div id="historicalfpp" class="panel-body" style="background: #efefef">
                         <div id="chartpage_fpp"  class="page-break" style="width: 100%">
                             <div id="charts padded">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="alert alert-info " style="font-size: 100%;"> <button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button> <i class="fa fa-info-circle fa-lg"></i><span> On average, how many aisle feet are walked per item picked. </span></div>
+                                        <div class="alert alert-info " style="font-size: 100%;"> <button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button> <i class="fa fa-info-circle fa-lg"></i><span> On average, how many aisle meters are walked per item picked. </span></div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="alert alert-success" style="font-size: 100%;"> <button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button> <i class="fa fa-arrow-down fa-lg"></i><span> Positive improvement indicated by <strong>downward</strong> trending graph. </span></div>
@@ -241,7 +241,7 @@
                 </section>
 
                 
-                <!--Historical Actual Replens graph-->
+<!--                Historical Actual Replens graph
                 <section class="panel hidewrapper" id="graph_historicalreplens_actual" style="margin-bottom: 50px; margin-top: 20px;"> 
                     <header class="panel-heading bg bg-inverse h2">Historical Completed Replens<i class="fa fa-close pull-right closehidden" style="cursor: pointer;" id="close_replengraph_actual"></i><i class="fa fa-chevron-up pull-right clicktotoggle-chevron" style="cursor: pointer;"></i></header>
                     <div id="historicalreplens_actual" class="panel-body" style="background: #efefef">
@@ -259,9 +259,9 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </section>-->
 
-                <!--Historical Replens to Invoice Lines graph-->
+<!--                Historical Replens to Invoice Lines graph
                 <section class="panel hidewrapper" id="graph_historicalreplenstolines_actual" style="margin-bottom: 50px; margin-top: 20px;"> 
                     <header class="panel-heading bg bg-inverse h2">Historical Completed Replens per 1000 Invoice Lines<i class="fa fa-close pull-right closehidden" style="cursor: pointer;" id="close_replenstolinesgraph_actual"></i><i class="fa fa-chevron-up pull-right clicktotoggle-chevron" style="cursor: pointer;"></i></header>
                     <div id="historicalreplenstolines_actual" class="panel-body" style="background: #efefef">
@@ -279,10 +279,10 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </section>-->
 
 
-                <!--Historical Shorts to Invoice Lines graph-->
+<!--                Historical Shorts to Invoice Lines graph
                 <section class="panel hidewrapper" id="graph_historicalshortstolines_actual" style="margin-bottom: 50px; margin-top: 20px;"> 
                     <header class="panel-heading bg bg-inverse h2">Historical Shorts per 1000 Invoice Lines<i class="fa fa-close pull-right closehidden" style="cursor: pointer;" id="close_shortstolinesgraph_actual"></i><i class="fa fa-chevron-up pull-right clicktotoggle-chevron" style="cursor: pointer;"></i></header>
                     <div id="historicalshortstolines_actual" class="panel-body" style="background: #efefef">
@@ -297,7 +297,7 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </section>-->
 
 
                 <!--Capacity gauges-->
@@ -700,7 +700,7 @@
                     },
                     yAxis: {
                         title: {
-                            text: 'Average Feet per Pick'
+                            text: 'Average Meters per Pick'
                         },
                         plotLines: [{
                                 value: 0,

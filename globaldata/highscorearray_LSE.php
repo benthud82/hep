@@ -28,8 +28,10 @@ $TOP_SCORE = $conn1->prepare("SELECT DISTINCT
                                                         hep.my_npfmvc A
                                                             JOIN
                                                         hep.optimalbay B ON A.ITEM_NUMBER = B.OPT_ITEM
+                                                        AND A.CUR_LEVEL = B.OPT_LEVEL
                                                             JOIN
                                                         hep.item_location ON A.ITEM_NUMBER = loc_item
+                                                        AND A.CUR_LEVEL = loc_level
                                                             JOIN
                                                         hep.slottingscore E ON E.SCORE_ITEM = A.ITEM_NUMBER
                                                             JOIN
@@ -42,11 +44,10 @@ $TOP_SCORE = $conn1->prepare("SELECT DISTINCT
                                                         (HOLDLOCATION IS NULL
                                                             OR HOLDLOCATION = ' ')
                                                             AND goal_item IS NULL
-                                                            AND A.LMTIER <> 'L01'
-                                                            AND A.SUGGESTED_TIER <> 'L01' $itemnumsql
+                                                            $itemnumsql
                                                             and CUR_LEVEL like '$var_levelsel'
                                                     ORDER BY E.SCORE_TOTALSCORE_OPT - E.SCORE_TOTALSCORE DESC , E.SCORE_TOTALSCORE ASC , E.SCORE_REPLENSCORE ASC , E.SCORE_WALKSCORE ASC
-                                                    LIMIT $returncount ");
+                                                    LIMIT $sqlreturn ");
 $TOP_SCORE->execute();
 $TOP_REPLEN_COST_array = $TOP_SCORE->fetchAll(pdo::FETCH_ASSOC);
 

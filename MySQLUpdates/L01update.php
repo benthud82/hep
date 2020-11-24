@@ -11,7 +11,11 @@ $L01countsql = $conn1->prepare("SELECT
                                                                     hep.slotmaster
                                                                 WHERE
                                                                     slotmaster_branch = '$whssel' 
-                                                                         AND slotmaster_level = '$level'
+                                                                         AND slotmaster_level = '$level' 
+                                                                             and (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
                                                                         AND slotmaster_tier = 'L01' ");
 $L01countsql->execute();
 $L01countarray = $L01countsql->fetchAll(pdo::FETCH_ASSOC);
@@ -23,6 +27,10 @@ $L01GridsSQL = $conn1->prepare("SELECT
                                                                         hep.slotmaster
                                                                     WHERE
                                                                         slotmaster_level = '$level' AND slotmaster_tier = 'L01'
+                                                                          and  (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
                                                                     GROUP BY slotmaster_dimgroup , slotmaster_usehigh , slotmaster_usedeep , slotmaster_usewide , slotmaster_usecube
                                                                     ORDER BY slotmaster_usecube DESC");
 $L01GridsSQL->execute();
@@ -124,6 +132,11 @@ $L01sql = $conn1->prepare("SELECT DISTINCT
                                                              slotmaster_tier in ('L01','L02','L04') AND slotmaster_level = '$level'
                                                             AND F.ITEM_NUMBER IS NULL
                                                             and PERC_PKGTYPE = 'LSE' and A.DSLS <= 5
+                                                         and   (slotmaster_locdesc NOT LIKE ('GS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('WK%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('VS%')
+                                                                                    AND slotmaster_locdesc NOT LIKE ('KH%'))
+                                                                                    and slotmaster_block not in ('S', 'N')
                                                     ORDER BY DLY_CUBE_VEL DESC
                                                     LIMIT $L01Count");
 $L01sql->execute();

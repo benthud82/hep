@@ -17,9 +17,9 @@ switch ($var_report) {  //build sql statement for report
         if ($var_tier == 'L01') {
             $reportsql = " A.SUGGESTED_TIER = 'L01' and A.LMTIER <> 'L01' ";
         } else if ($var_tier == 'L02') {
-            $reportsql = " A.SUGGESTED_TIER = 'L02' and A.LMTIER <> 'L02' ";
+            $reportsql = " A.SUGGESTED_TIER = 'L02' and A.LMTIER <> 'L02' and  B.OPT_OPTWALKFEET = $var_bay  and A.SUGGESTED_GRID5 = '$var_grid5sel' ";
         } else {
-            $reportsql = " B.OPT_OPTWALKFEET = $var_bay and B.OPT_CURRWALKFEET <> $var_bay  and A.SUGGESTED_GRID5 like '$var_grid5sel' and A.SUGGESTED_TIER in ('$var_tier')   ";
+            $reportsql = " B.OPT_OPTWALKFEET = $var_bay and B.OPT_CURRWALKFEET <> $var_bay  and A.SUGGESTED_GRID5 = '$var_grid5sel' and A.SUGGESTED_TIER in ('$var_tier')   ";
         }
         break;
 
