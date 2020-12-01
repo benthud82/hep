@@ -320,17 +320,14 @@ $sqldelete2 = "TRUNCATE TABLE hep.vectormaperrors";
 $querydelete2 = $conn1->prepare($sqldelete2);
 $querydelete2->execute();
 
-$result5 = $conn1->prepare("INSERT IGNORE INTO hep.vectormaperrors (maperror_bay, maperror_tier)
+$result5 = $conn1->prepare("INSERT IGNORE INTO hep.vectormaperrors (maperror_location, maperror_bay)
                                                         SELECT DISTINCT
-                                                            L.slotmaster_bay AS SLOTBAY, L.slotmaster_tier
+                                                            L.slotmaster_loc AS location, L.slotmaster_bay
                                                         FROM
-                                                            hep.item_location D
-                                                                JOIN
-                                                            hep.slotmaster L ON L.slotmaster_loc = loc_location
-                                                                LEFT JOIN
-                                                            hep.vectormap V ON V.BAY = L.slotmaster_bay
+                                                            hep.slotmaster L
+                                                                
                                                         WHERE
-                                                            L.slotmaster_distance IS NULL");
+                                                            L.slotmaster_bay = ''");
 $result5->execute();
 
 
