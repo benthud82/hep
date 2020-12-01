@@ -98,9 +98,9 @@ do {
     $maxrange += 10000;
 } while ($counter <= $rowcount); //end of item by whse loop
 
-foreach ($fileglob as $deletefile) {
-    unlink(realpath($deletefile));
-}
+//foreach ($fileglob as $deletefile) {
+//    unlink(realpath($deletefile));
+//}
 
 
 //Pull in vector map bay from bay_loc and overwrite $slotmaster_bay in the slotmaster table
