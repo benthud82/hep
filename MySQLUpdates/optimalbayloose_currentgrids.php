@@ -525,7 +525,7 @@ ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL A
 
         if (!is_null($testloc) && $testloc <> '') {
             $OPT_LOCATION = $testloc;
-        } else if (count($baycubearray_L04 > 0)) {
+        } else if ($baycubearray_L04) {
             //need to verify the location size matches
 
             foreach ($baycubearray_L04 as $key2 => $value) {//loop through L01 non-assigned grids
