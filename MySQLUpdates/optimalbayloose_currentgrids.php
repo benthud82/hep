@@ -96,7 +96,7 @@ ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL A
 
         if (!is_null($testloc) && $testloc <> '') {
             $OPT_LOCATION = $testloc;
-        } else if (count($baycubearray_L06 > 0)) {
+        } else if ($baycubearray_L06) {
             //need to verify the location size matches
 
             foreach ($baycubearray_L06 as $key2 => $value) {//loop through L01 non-assigned grids
@@ -376,7 +376,7 @@ ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL A
 
         if (!is_null($testloc) && $testloc <> '') {
             $OPT_LOCATION = $testloc;
-        } else if (count($baycubearray_L01 > 0)) {
+        } else if ($baycubearray_L01) {
             //need to verify the location size matches
 
             foreach ($baycubearray_L01 as $key2 => $value) {//loop through L01 non-assigned grids
@@ -451,7 +451,7 @@ ORDER BY (AVG_DAILY_PICK) / (SUGGESTED_NEWLOCVOL) DESC , A.SUGGESTED_NEWLOCVOL A
 
         if (!is_null($testloc) && $testloc <> '') {
             $OPT_LOCATION = $testloc;
-        } else if (count($baycubearray_L02 > 0)) {
+        } else if ($baycubearray_L02) {
             //need to verify the location size matches
 
             foreach ($baycubearray_L02 as $key2 => $value) {//loop through L01 non-assigned grids
