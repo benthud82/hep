@@ -50,8 +50,10 @@ $itemarray = $itemsql->fetchAll(pdo::FETCH_COLUMN);
 
 $itemcount = count($itemarray);
 
-$onethird = intval($itemcount * .33);
-$twothird = intval($itemcount * .67);
+$onefifth = intval($itemcount * .2);
+$twofifth = intval($itemcount * .4);
+$threefifth = intval($itemcount * .6);
+$fourfifth = intval($itemcount * .8);
 
 $onethird_item = $itemarray[$onethird];
 $twohird_item = $itemarray[$twothird];
@@ -60,13 +62,19 @@ $loopcount = 1;
 do {
     switch ($loopcount) {
         case 1:
-            $limitsql = "WHERE A.ITEM <= $onethird_item ";
+            $limitsql = "WHERE A.ITEM <= $onefifth ";
             break;
         case 2:
-            $limitsql = "WHERE A.ITEM > $onethird_item and A.ITEM <= $twohird_item";
+            $limitsql = "WHERE A.ITEM > $onefifth and A.ITEM <= $twofifth";
             break;
         case 3:
-            $limitsql = "WHERE A.ITEM > $twohird_item ";
+            $limitsql = "WHERE A.ITEM > $twofifth and A.ITEM <= $threefifth";
+            break;
+        case 4:
+            $limitsql = "WHERE A.ITEM > $threefifth and A.ITEM <= $fourfifth";
+            break;
+        case 5:
+            $limitsql = "WHERE A.ITEM > $fourfifth ";
             break;
         default:
             break;
