@@ -169,7 +169,7 @@ do {
         $maxrange += 2000;
     } while ($counter <= $rowcount); //end of item by whse loop
     $loopcount += 1;
-} while ($loopcount < 4); //end of item 1/3 split loop
+} while ($loopcount < 6); //end of item 1/3 split loop
 //Truncate NPTLSD file
 $sqldelete = "TRUNCATE hep.nptsld";
 $querydelete = $conn1->prepare($sqldelete);
