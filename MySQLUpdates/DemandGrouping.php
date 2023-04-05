@@ -55,26 +55,29 @@ $twofifth = intval($itemcount * .4);
 $threefifth = intval($itemcount * .6);
 $fourfifth = intval($itemcount * .8);
 
-$onethird_item = $itemarray[$onethird];
-$twohird_item = $itemarray[$twothird];
+$onefifth_item = $itemarray[$onefifth];
+$twofifth_item = $itemarray[$twofifth];
+$threefifth_item = $itemarray[$threefifth];
+$fourfifth_item = $itemarray[$fourfifth];
+
 $loopcount = 1;
 
 do {
     switch ($loopcount) {
         case 1:
-            $limitsql = "WHERE A.ITEM <= $onefifth ";
+            $limitsql = "WHERE A.ITEM <= $onefifth_item ";
             break;
         case 2:
-            $limitsql = "WHERE A.ITEM > $onefifth and A.ITEM <= $twofifth";
+            $limitsql = "WHERE A.ITEM > $onefifth_item and A.ITEM <= $twofifth_item";
             break;
         case 3:
-            $limitsql = "WHERE A.ITEM > $twofifth and A.ITEM <= $threefifth";
+            $limitsql = "WHERE A.ITEM > $twofifth_item and A.ITEM <= $threefifth_item";
             break;
         case 4:
-            $limitsql = "WHERE A.ITEM > $threefifth and A.ITEM <= $fourfifth";
+            $limitsql = "WHERE A.ITEM > $threefifth_item and A.ITEM <= $fourfifth_item";
             break;
         case 5:
-            $limitsql = "WHERE A.ITEM > $fourfifth ";
+            $limitsql = "WHERE A.ITEM > $fourfifth_item ";
             break;
         default:
             break;
