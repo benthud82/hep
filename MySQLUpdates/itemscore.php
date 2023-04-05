@@ -320,7 +320,7 @@ $sqldelete2 = "TRUNCATE TABLE hep.vectormaperrors";
 $querydelete2 = $conn1->prepare($sqldelete2);
 $querydelete2->execute();
 
-$result5 = $conn1->prepare("INSERT IGNORE INTO hep.vectormaperrors (maperror_location, maperror_bay)
+$result5 = $conn1->prepare("INSERT IGNORE INTO hep.vectormaperrors (maperror_loc, maperror_bay)
                                                         SELECT DISTINCT
                                                             L.slotmaster_loc AS location, L.slotmaster_bay
                                                         FROM
