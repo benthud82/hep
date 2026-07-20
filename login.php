@@ -11,6 +11,7 @@ $passarray = $pass->fetchAll(pdo::FETCH_ASSOC);
 
 if (count($passarray) == 0) {
     header('Location: registration.php');
+    exit;
 }
 
 
@@ -26,6 +27,7 @@ if (password_verify($sessionpw, $hashedPasswordFromDB)) {
 
     if (count($usersetarray) == 0) {  //the user is not logged in redirect to registration page
         header('Location: registration.php');
+        exit;
     } elseif (isset($conn1)) {
 
         // If correct, we set the session to YES
@@ -33,7 +35,6 @@ if (password_verify($sessionpw, $hashedPasswordFromDB)) {
         $_SESSION["Login"] = "YES";
         $_SESSION['LAST_ACTIVITY'] = time();
         $_SESSION['MYUSER'] = $_POST["username"];
-        $_SESSION['MYPASS'] = $_POST["password"];
 
         //write to MySQL Database that user logged in:
         include_once 'connection/connection_details.php';
@@ -44,6 +45,7 @@ if (password_verify($sessionpw, $hashedPasswordFromDB)) {
         $result1->execute();
 
         header('Location: dashboard.php');
+        exit;
     }
 } else {
 

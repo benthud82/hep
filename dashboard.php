@@ -7,6 +7,7 @@
     <head>
         <title>OSS - Dashboard</title>
         <?php include_once 'headerincludes.php'; ?>
+        <link href="osscss/conveyor_reslot.css" rel="stylesheet" type="text/css"/>
         <script src="../Snap.svg-0.4.1/dist/snap.svg.js" type="text/javascript"> // script to animate guages  </script>
 
 
@@ -180,6 +181,111 @@
                                             </div>
                                         </div> -->
                 </div> 
+
+                <section class="panel conveyor-dashboard-panel" id="conveyor_dashboard_plan">
+                    <header class="panel-heading conveyor-dashboard-heading">
+                        <div class="conveyor-dashboard-title-block">
+                            <span class="conveyor-dashboard-eyebrow">CONVEYOR SLOTTING</span>
+                            <h2>Reslot Action Plan</h2>
+                            <p>Capacity-balanced recommendations and projected operational impact for levels A, B, and C.</p>
+                        </div>
+                        <div class="conveyor-dashboard-actions">
+                            <span class="conveyor-dashboard-date">Model date: <strong class="conveyor-model-date">Loading&hellip;</strong></span>
+                            <a class="btn btn-primary" href="conveyor_reslot.php">
+                                View Recommendations <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </header>
+                    <div class="panel-body conveyor-dashboard-body">
+                        <div id="conveyor-dashboard-loading" class="conveyor-loading" role="status">
+                            <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>
+                            Loading conveyor plan&hellip;
+                        </div>
+                        <div id="conveyor-dashboard-content" class="hidden">
+                            <div id="conveyor-reslot-summary" class="conveyor-summary conveyor-summary-dashboard" aria-live="polite">
+                                <div class="conveyor-dashboard-kpi-grid">
+                                    <div class="conveyor-dashboard-kpi conveyor-dashboard-kpi-in">
+                                        <div class="conveyor-dashboard-kpi-accent"></div>
+                                        <div class="conveyor-dashboard-kpi-content">
+                                            <span class="conveyor-total-label">Move In</span>
+                                            <strong class="conveyor-total-value" data-summary-total="move_in">&mdash;</strong>
+                                            <span class="conveyor-total-help">items entering conveyor</span>
+                                        </div>
+                                    </div>
+                                    <div class="conveyor-dashboard-kpi conveyor-dashboard-kpi-out">
+                                        <div class="conveyor-dashboard-kpi-accent"></div>
+                                        <div class="conveyor-dashboard-kpi-content">
+                                            <span class="conveyor-total-label">Move Out</span>
+                                            <strong class="conveyor-total-value" data-summary-total="move_out">&mdash;</strong>
+                                            <span class="conveyor-total-help">items leaving conveyor</span>
+                                        </div>
+                                    </div>
+                                    <div class="conveyor-dashboard-kpi conveyor-dashboard-kpi-occupancy">
+                                        <div class="conveyor-dashboard-kpi-accent"></div>
+                                        <div class="conveyor-dashboard-kpi-content">
+                                            <span class="conveyor-total-label">Recommended Occupancy</span>
+                                            <strong class="conveyor-total-value" data-summary-total="recommended">&mdash;</strong>
+                                            <span class="conveyor-total-help"><span data-summary-total="capacity">&mdash;</span> physical positions</span>
+                                        </div>
+                                    </div>
+                                    <div class="conveyor-dashboard-kpi conveyor-dashboard-kpi-open">
+                                        <div class="conveyor-dashboard-kpi-accent"></div>
+                                        <div class="conveyor-dashboard-kpi-content">
+                                            <span class="conveyor-total-label">Planned Open</span>
+                                            <strong class="conveyor-total-value" data-summary-total="planned_open">&mdash;</strong>
+                                            <span class="conveyor-total-help"><span data-summary-reserve>&mdash;</span> capacity reserve</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <section class="conveyor-dashboard-impact" aria-labelledby="conveyor-dashboard-impact-title">
+                                    <div class="conveyor-dashboard-impact-heading">
+                                        <div>
+                                            <span class="conveyor-dashboard-impact-kicker">FULL PLAN PROJECTED IMPACT</span>
+                                            <h3 id="conveyor-dashboard-impact-title">Operational savings opportunity</h3>
+                                        </div>
+                                        <span class="conveyor-dashboard-impact-scope"><strong data-summary-total="total_actions">&mdash;</strong> prioritized actions</span>
+                                    </div>
+                                    <div class="conveyor-dashboard-impact-grid">
+                                        <div class="conveyor-dashboard-impact-card">
+                                            <span>Walk saved / day</span>
+                                            <strong data-summary-impact="daily_walk_reduction_meters">&mdash;</strong>
+                                            <small>net meters</small>
+                                        </div>
+                                        <div class="conveyor-dashboard-impact-card">
+                                            <span>Replen moves avoided / day</span>
+                                            <strong data-summary-impact="daily_replen_reduction">&mdash;</strong>
+                                            <small>net moves</small>
+                                        </div>
+                                        <div class="conveyor-dashboard-impact-card">
+                                            <span>Annual walk reduction</span>
+                                            <strong data-summary-impact="annual_walk_reduction_km">&mdash;</strong>
+                                            <small>kilometers / 253 days</small>
+                                        </div>
+                                        <div class="conveyor-dashboard-impact-card">
+                                            <span>Annual replen reduction</span>
+                                            <strong data-summary-impact="annual_replen_reduction">&mdash;</strong>
+                                            <small>moves / 253 days</small>
+                                        </div>
+                                    </div>
+                                    <div class="conveyor-dashboard-impact-baseline">
+                                        <span>Walk: <strong data-summary-impact="current_walk_meters_day">&mdash;</strong> &rarr; <strong data-summary-impact="implied_walk_meters_day">&mdash;</strong> m/day</span>
+                                        <span>Replenishment: <strong data-summary-impact="current_replen_day">&mdash;</strong> &rarr; <strong data-summary-impact="implied_replen_day">&mdash;</strong> moves/day</span>
+                                    </div>
+                                </section>
+
+                                <div class="conveyor-dashboard-level-heading">
+                                    <div>
+                                        <span>LEVEL READINESS</span>
+                                        <h3>Capacity and action mix</h3>
+                                    </div>
+                                    <small>Target occupancy after completing all recommendations</small>
+                                </div>
+                                <div class="row conveyor-summary-levels conveyor-dashboard-levels"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 
                 <!--Historical Feet per Pick graph-->
@@ -949,6 +1055,8 @@
             });
 
         </script>
+
+        <script src="js/conveyor_reslot.js" type="text/javascript"></script>
 
 
     </body>

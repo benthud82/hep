@@ -11,8 +11,8 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 
 $_SESSION['LAST_ACTIVITY'] = time();
 
 
-//         session_destroy();
 // If the user is not logged in send him/her to the login form
-if ($_SESSION["Login"] != "YES") {
+if (!isset($_SESSION["Login"]) || $_SESSION["Login"] != "YES") {
     header("Location: signin.php");
+    exit;
 }

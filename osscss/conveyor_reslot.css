@@ -1,0 +1,1872 @@
+.conveyor-reslot-page {
+    background: #f4f7fa;
+    min-height: 100vh;
+    padding-top: 75px;
+    padding-bottom: 50px;
+}
+
+.conveyor-hero {
+    background: #152b45;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(21, 43, 69, 0.16);
+    color: #ffffff;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding: 26px 30px;
+    position: relative;
+}
+
+.conveyor-hero:after {
+    background: #2f80ed;
+    content: '';
+    height: 5px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.conveyor-hero h1 {
+    color: #ffffff;
+    font-size: 29px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+    margin: 4px 0 8px;
+}
+
+.conveyor-hero p {
+    color: #cfdae7;
+    font-size: 14px;
+    margin: 0;
+    max-width: 720px;
+}
+
+.conveyor-eyebrow {
+    color: #8fc1ff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.conveyor-hero-meta {
+    border-left: 1px solid rgba(255, 255, 255, 0.16);
+    min-height: 82px;
+    padding-left: 30px;
+    text-align: right;
+}
+
+.conveyor-hero-meta .btn {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.55);
+    color: #ffffff;
+    margin-top: 12px;
+}
+
+.conveyor-hero-meta .btn:hover,
+.conveyor-hero-meta .btn:focus {
+    background: #ffffff;
+    color: #152b45;
+}
+
+.conveyor-asof-label {
+    color: #9fb1c5;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.conveyor-asof {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.conveyor-summary {
+    margin-bottom: 20px;
+}
+
+.conveyor-dashboard-panel {
+    background: #f6f8fb;
+    border: 1px solid #d6e0ea;
+    border-radius: 8px;
+    box-shadow: 0 12px 32px rgba(21, 43, 69, 0.12);
+    margin-bottom: 35px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.conveyor-dashboard-heading {
+    align-items: center;
+    background: linear-gradient(115deg, #102d45 0%, #174d6d 100%);
+    border-top: 4px solid #2f80ed;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    padding: 23px 28px;
+}
+
+.conveyor-dashboard-heading h2 {
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 700;
+    margin: 2px 0 3px;
+}
+
+.conveyor-dashboard-heading p {
+    color: #c5d2df;
+    font-size: 12px;
+    margin: 0;
+}
+
+.conveyor-dashboard-eyebrow {
+    color: #78c9ee;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+}
+
+.conveyor-dashboard-actions {
+    text-align: right;
+}
+
+.conveyor-dashboard-actions .btn {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #174d6d;
+    font-weight: 700;
+    margin-left: 16px;
+}
+
+.conveyor-dashboard-actions .btn:hover,
+.conveyor-dashboard-actions .btn:focus {
+    background: #dff3fc;
+    border-color: #dff3fc;
+    color: #10344d;
+}
+
+.conveyor-dashboard-date {
+    color: #b9c8d7;
+    font-size: 11px;
+}
+
+.conveyor-dashboard-date strong {
+    color: #ffffff;
+}
+
+.conveyor-summary-dashboard {
+    margin-bottom: 0;
+}
+
+.conveyor-dashboard-body {
+    background: #f6f8fb;
+    padding: 20px 22px 23px;
+}
+
+.conveyor-dashboard-kpi-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.conveyor-dashboard-kpi {
+    align-items: stretch;
+    background: #ffffff;
+    border: 1px solid #dbe4ec;
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(21, 43, 69, 0.05);
+    display: flex;
+    min-height: 112px;
+    overflow: hidden;
+}
+
+.conveyor-dashboard-kpi-accent {
+    background: #718398;
+    flex: 0 0 5px;
+}
+
+.conveyor-dashboard-kpi-in .conveyor-dashboard-kpi-accent {
+    background: #2b956b;
+}
+
+.conveyor-dashboard-kpi-out .conveyor-dashboard-kpi-accent {
+    background: #c65a2b;
+}
+
+.conveyor-dashboard-kpi-occupancy .conveyor-dashboard-kpi-accent {
+    background: #2b7fab;
+}
+
+.conveyor-dashboard-kpi-open .conveyor-dashboard-kpi-accent {
+    background: #6f8094;
+}
+
+.conveyor-dashboard-kpi-content {
+    padding: 16px 17px;
+}
+
+.conveyor-dashboard-kpi .conveyor-total-value {
+    font-size: 29px;
+    margin: 5px 0 4px;
+}
+
+.conveyor-dashboard-impact {
+    background: linear-gradient(135deg, #102f46 0%, #174f70 100%);
+    border-radius: 7px;
+    box-shadow: 0 8px 20px rgba(19, 55, 79, 0.16);
+    color: #ffffff;
+    margin-top: 15px;
+    padding: 17px 18px 13px;
+}
+
+.conveyor-dashboard-impact-heading,
+.conveyor-dashboard-level-heading,
+.conveyor-dashboard-level-top {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+}
+
+.conveyor-dashboard-impact-kicker,
+.conveyor-dashboard-level-heading > div > span {
+    color: #82d0f1;
+    display: block;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.25px;
+    margin-bottom: 3px;
+}
+
+.conveyor-dashboard-impact-heading h3,
+.conveyor-dashboard-level-heading h3 {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.conveyor-dashboard-impact-scope {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    color: #d7eaf4;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 5px 10px;
+}
+
+.conveyor-dashboard-impact-grid {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 13px;
+}
+
+.conveyor-dashboard-impact-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 5px;
+    min-height: 78px;
+    padding: 10px 12px;
+}
+
+.conveyor-dashboard-impact-card span,
+.conveyor-dashboard-impact-card small {
+    color: #bfd9e7;
+    display: block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    text-transform: uppercase;
+}
+
+.conveyor-dashboard-impact-card strong {
+    color: #6fe0ad;
+    display: block;
+    font-size: 20px;
+    line-height: 1.05;
+    margin: 5px 0 3px;
+}
+
+.conveyor-dashboard-impact-card strong.is-negative {
+    color: #ffb39f;
+}
+
+.conveyor-dashboard-impact-baseline {
+    color: #abc9d8;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 9px;
+    gap: 5px 22px;
+    margin-top: 9px;
+}
+
+.conveyor-dashboard-impact-baseline strong {
+    color: #ffffff;
+}
+
+.conveyor-dashboard-level-heading {
+    align-items: flex-end;
+    margin: 18px 1px 9px;
+}
+
+.conveyor-dashboard-level-heading > div > span {
+    color: #2878a6;
+}
+
+.conveyor-dashboard-level-heading h3 {
+    color: #203d55;
+}
+
+.conveyor-dashboard-level-heading small {
+    color: #748596;
+    font-size: 10px;
+}
+
+.conveyor-dashboard-levels {
+    margin-top: 0;
+}
+
+.conveyor-dashboard-level-card {
+    background: #ffffff;
+    border: 1px solid #dbe4ec;
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(21, 43, 69, 0.05);
+    min-height: 151px;
+    padding: 14px;
+}
+
+.conveyor-dashboard-level-top {
+    align-items: center;
+}
+
+.conveyor-dashboard-level-badge {
+    align-items: center;
+    background: #e8f2f8;
+    border-radius: 5px;
+    color: #174f70;
+    display: flex;
+    flex: 0 0 42px;
+    font-size: 22px;
+    font-weight: 800;
+    height: 42px;
+    justify-content: center;
+}
+
+.conveyor-dashboard-level-title {
+    flex: 1;
+    padding-left: 10px;
+}
+
+.conveyor-dashboard-level-title span,
+.conveyor-dashboard-level-title strong,
+.conveyor-dashboard-level-utilization span,
+.conveyor-dashboard-level-utilization strong {
+    display: block;
+}
+
+.conveyor-dashboard-level-title span,
+.conveyor-dashboard-level-utilization span {
+    color: #748596;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.conveyor-dashboard-level-title strong {
+    color: #244157;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.conveyor-dashboard-level-utilization {
+    text-align: right;
+}
+
+.conveyor-dashboard-level-utilization strong {
+    color: #174f70;
+    font-size: 16px;
+}
+
+.conveyor-dashboard-level-progress {
+    background: #e8eef3;
+    border-radius: 4px;
+    height: 6px;
+    margin: 12px 0;
+    overflow: hidden;
+}
+
+.conveyor-dashboard-level-progress span {
+    background: linear-gradient(90deg, #2c8b65, #44b486);
+    border-radius: inherit;
+    display: block;
+    height: 100%;
+}
+
+.conveyor-dashboard-level-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.conveyor-dashboard-level-metrics > div {
+    border-right: 1px solid #e4eaf0;
+    text-align: center;
+}
+
+.conveyor-dashboard-level-metrics > div:last-child {
+    border-right: 0;
+}
+
+.conveyor-dashboard-level-metrics strong,
+.conveyor-dashboard-level-metrics span {
+    display: block;
+}
+
+.conveyor-dashboard-level-metrics strong {
+    color: #203d55;
+    font-size: 17px;
+}
+
+.conveyor-dashboard-level-metrics .metric-in strong {
+    color: #27835f;
+}
+
+.conveyor-dashboard-level-metrics .metric-out strong {
+    color: #bd5428;
+}
+
+.conveyor-dashboard-level-metrics span {
+    color: #778797;
+    font-size: 9px;
+    margin-top: 2px;
+    text-transform: uppercase;
+}
+
+.conveyor-total-row {
+    margin-left: -7px;
+    margin-right: -7px;
+}
+
+.conveyor-total-row > div {
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.conveyor-total-card {
+    background: #ffffff;
+    border: 1px solid #dce4ec;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(21, 43, 69, 0.05);
+    min-height: 116px;
+    padding: 16px 18px;
+}
+
+.conveyor-total-card:before {
+    background: #73849a;
+    border-radius: 3px;
+    content: '';
+    display: block;
+    height: 4px;
+    margin-bottom: 12px;
+    width: 32px;
+}
+
+.conveyor-total-in:before {
+    background: #1f8f5f;
+}
+
+.conveyor-total-out:before {
+    background: #c75b24;
+}
+
+.conveyor-total-label,
+.conveyor-total-help {
+    color: #65758a;
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.conveyor-total-value {
+    color: #172b43;
+    display: inline-block;
+    font-size: 30px;
+    font-weight: 650;
+    line-height: 1.1;
+    margin: 4px 0;
+}
+
+.conveyor-total-help {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: none;
+}
+
+.conveyor-summary-levels {
+    margin-top: 14px;
+}
+
+.conveyor-level-card {
+    background: #ffffff;
+    border: 1px solid #dce4ec;
+    border-radius: 5px;
+    display: flex;
+    min-height: 104px;
+    overflow: hidden;
+}
+
+.conveyor-level-name {
+    align-items: center;
+    background: #eaf1f8;
+    color: #183653;
+    display: flex;
+    flex: 0 0 72px;
+    flex-direction: column;
+    font-size: 11px;
+    font-weight: 700;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+.conveyor-level-name strong {
+    font-size: 28px;
+    line-height: 1;
+    margin-top: 3px;
+}
+
+.conveyor-level-metrics {
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+    padding: 15px 10px;
+}
+
+.conveyor-level-metric {
+    min-width: 58px;
+    text-align: center;
+}
+
+.conveyor-level-metric strong,
+.conveyor-level-metric span {
+    display: block;
+}
+
+.conveyor-level-metric strong {
+    color: #172b43;
+    font-size: 20px;
+}
+
+.conveyor-level-metric span {
+    color: #718096;
+    font-size: 10px;
+    margin-top: 2px;
+    text-transform: uppercase;
+}
+
+.conveyor-level-metric.metric-in strong {
+    color: #18764f;
+}
+
+.conveyor-level-metric.metric-out strong {
+    color: #ad481b;
+}
+
+.conveyor-guidance {
+    align-items: flex-start;
+    background: #edf5ff;
+    border: 1px solid #c9ddf5;
+    border-left: 4px solid #2f80ed;
+    border-radius: 4px;
+    color: #2e4a68;
+    display: flex;
+    font-size: 13px;
+    line-height: 1.55;
+    margin-bottom: 20px;
+    padding: 13px 16px;
+}
+
+.conveyor-guidance > i {
+    color: #2f80ed;
+    font-size: 18px;
+    margin-right: 12px;
+    margin-top: 2px;
+}
+
+.conveyor-guidance strong {
+    color: #173b60;
+    display: block;
+}
+
+.conveyor-report-panel {
+    border: 1px solid #dce4ec;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(21, 43, 69, 0.06);
+    overflow: hidden;
+}
+
+.conveyor-report-heading {
+    align-items: center;
+    background: #ffffff;
+    border-bottom: 1px solid #e1e7ee;
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 20px;
+}
+
+.conveyor-report-heading h2 {
+    color: #172b43;
+    font-size: 19px;
+    font-weight: 600;
+    margin: 0 0 3px;
+}
+
+.conveyor-report-heading p {
+    color: #718096;
+    font-size: 12px;
+    margin: 0;
+}
+
+.conveyor-visible-count {
+    background: #edf2f7;
+    border-radius: 18px;
+    color: #41556d;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 12px;
+}
+
+.conveyor-filter-bar {
+    align-items: flex-end;
+    background: #f7f9fb;
+    border: 1px solid #e1e7ee;
+    border-radius: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding: 12px 14px;
+}
+
+.conveyor-filter-group {
+    margin: 3px 8px 3px 0;
+}
+
+.conveyor-filter-label {
+    color: #536579;
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.conveyor-filter-bar .btn {
+    border-color: #cbd5df;
+    color: #34495e;
+    font-size: 12px;
+    min-height: 32px;
+}
+
+.conveyor-filter-bar .btn.active {
+    background: #173b60;
+    border-color: #173b60;
+    box-shadow: none;
+    color: #ffffff;
+}
+
+.conveyor-filter-bar .badge {
+    background: #dfe7ef;
+    color: #34495e;
+    margin-left: 4px;
+}
+
+.conveyor-filter-bar .btn.active .badge {
+    background: #ffffff;
+    color: #173b60;
+}
+
+#conveyor-level-filter {
+    min-width: 130px;
+}
+
+.conveyor-loading {
+    color: #536579;
+    font-size: 14px;
+    padding: 48px 20px;
+    text-align: center;
+}
+
+.conveyor-loading i {
+    color: #2f80ed;
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+.conveyor-action-badge {
+    border: 1px solid transparent;
+    border-radius: 12px;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    padding: 4px 8px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.conveyor-action-in {
+    background: #e5f5ed;
+    border-color: #a8d7bf;
+    color: #176b48;
+}
+
+.conveyor-action-out {
+    background: #fff0e8;
+    border-color: #e6baa5;
+    color: #9c3e16;
+}
+
+.conveyor-delta {
+    border-radius: 3px;
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    min-width: 54px;
+    padding: 3px 6px;
+    text-align: right;
+}
+
+.conveyor-delta-positive {
+    background: #e8f5ee;
+    color: #176b48;
+}
+
+.conveyor-delta-negative {
+    background: #fff0e8;
+    color: #9c3e16;
+}
+
+.conveyor-delta-neutral {
+    color: #65758a;
+}
+
+#conveyor-reslot-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 11px;
+}
+
+#conveyor-reslot-table thead th {
+    background: #203a55;
+    border-color: #314e6c;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 9px 7px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+#conveyor-reslot-table tbody td {
+    border-color: #e4e9ef;
+    color: #31455a;
+    padding: 8px 7px;
+    vertical-align: middle;
+}
+
+#conveyor-reslot-table tbody tr.conveyor-row-out td:first-child {
+    border-left: 3px solid #c75b24;
+}
+
+#conveyor-reslot-table tbody tr.conveyor-row-in td:first-child {
+    border-left: 3px solid #1f8f5f;
+}
+
+.conveyor-item-link {
+    color: #1d67a7;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.conveyor-grid-value,
+.conveyor-walk-value {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.conveyor-why {
+    color: #65758a;
+    display: block;
+    line-height: 1.35;
+    min-width: 185px;
+}
+
+.conveyor-reslot-page .dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #bfcbd7;
+    border-radius: 4px;
+    margin-left: 7px;
+    min-height: 32px;
+    padding: 5px 8px;
+}
+
+.conveyor-reslot-page .dt-buttons .btn {
+    background: #ffffff;
+    border-color: #bfcbd7;
+    color: #34495e;
+    font-size: 11px;
+}
+
+.conveyor-hero-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+.conveyor-hero-actions .btn {
+    border-radius: 4px;
+    font-weight: 700;
+    min-width: 132px;
+}
+
+.conveyor-hero-actions .btn-primary {
+    background: #f3a712;
+    border-color: #f3a712;
+    color: #12263a;
+}
+
+.conveyor-hero-actions .btn-primary:hover,
+.conveyor-hero-actions .btn-primary:focus {
+    background: #ffbd3b;
+    border-color: #ffbd3b;
+    color: #12263a;
+}
+
+.conveyor-hero-actions .btn-primary[disabled] {
+    background: rgba(255, 255, 255, 0.28);
+    border-color: rgba(255, 255, 255, 0.22);
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.conveyor-plan-modal {
+    color: #24384c;
+}
+
+.conveyor-plan-modal .modal-dialog {
+    margin: 24px auto;
+    max-width: 1160px;
+    width: calc(100% - 48px);
+}
+
+.conveyor-plan-modal .modal-content {
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 24px 70px rgba(14, 31, 47, 0.38);
+    overflow: hidden;
+}
+
+.conveyor-plan-header {
+    background: linear-gradient(125deg, #102b46 0%, #174d73 100%);
+    border-bottom: 0;
+    color: #ffffff;
+    padding: 22px 28px 20px;
+}
+
+.conveyor-plan-header .close {
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 300;
+    opacity: 0.76;
+    text-shadow: none;
+}
+
+.conveyor-plan-header .close:hover,
+.conveyor-plan-header .close:focus {
+    opacity: 1;
+}
+
+.conveyor-plan-kicker {
+    color: #77c9f3;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+    margin-bottom: 5px;
+}
+
+.conveyor-plan-header h2 {
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.conveyor-plan-header p {
+    color: #c8dceb;
+    font-size: 13px;
+    margin: 6px 0 0;
+}
+
+.conveyor-plan-progress {
+    background: #f6f8fb;
+    border-bottom: 1px solid #dfe6ed;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0 28px;
+}
+
+.conveyor-plan-progress li {
+    align-items: center;
+    color: #7a8998;
+    display: flex;
+    flex: 1;
+    font-size: 11px;
+    font-weight: 700;
+    gap: 8px;
+    letter-spacing: 0.35px;
+    min-height: 62px;
+    position: relative;
+    text-transform: uppercase;
+}
+
+.conveyor-plan-progress li:not(:last-child):after {
+    background: #d5dee7;
+    content: '';
+    height: 1px;
+    position: absolute;
+    right: 16px;
+    top: 31px;
+    width: calc(100% - 116px);
+}
+
+.conveyor-plan-progress li span {
+    align-items: center;
+    background: #e0e6ec;
+    border-radius: 50%;
+    color: #718293;
+    display: inline-flex;
+    height: 28px;
+    justify-content: center;
+    width: 28px;
+}
+
+.conveyor-plan-progress li.active {
+    color: #165e8d;
+}
+
+.conveyor-plan-progress li.active span {
+    background: #176b9e;
+    box-shadow: 0 0 0 4px rgba(23, 107, 158, 0.12);
+    color: #ffffff;
+}
+
+.conveyor-plan-progress li.complete {
+    color: #287a5b;
+}
+
+.conveyor-plan-progress li.complete span {
+    background: #2c8b65;
+    color: #ffffff;
+}
+
+.conveyor-plan-body {
+    background: #ffffff;
+    max-height: calc(100vh - 255px);
+    min-height: 480px;
+    overflow-y: auto;
+    padding: 26px 28px 30px;
+}
+
+.conveyor-plan-body > .alert {
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.conveyor-plan-savings {
+    background: linear-gradient(135deg, #102f46 0%, #174f70 100%);
+    border-radius: 7px;
+    box-shadow: 0 8px 20px rgba(19, 55, 79, 0.16);
+    color: #ffffff;
+    margin-bottom: 24px;
+    padding: 17px 18px 13px;
+}
+
+.conveyor-plan-savings-heading {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 13px;
+}
+
+.conveyor-plan-savings-kicker {
+    color: #8bd2f2;
+    display: block;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.25px;
+    margin-bottom: 3px;
+}
+
+.conveyor-plan-savings-heading h3 {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.conveyor-plan-savings-scope {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    color: #d7eaf4;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 5px 10px;
+}
+
+.conveyor-plan-savings-grid {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.conveyor-plan-savings-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 5px;
+    min-height: 78px;
+    padding: 10px 12px;
+}
+
+.conveyor-plan-savings-card span,
+.conveyor-plan-savings-card small {
+    color: #bfd9e7;
+    display: block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    text-transform: uppercase;
+}
+
+.conveyor-plan-savings-card strong {
+    color: #ffffff;
+    display: block;
+    font-size: 20px;
+    line-height: 1.05;
+    margin: 5px 0 3px;
+}
+
+.conveyor-plan-savings-card strong.is-positive {
+    color: #6fe0ad;
+}
+
+.conveyor-plan-savings-card strong.is-negative {
+    color: #ffb39f;
+}
+
+.conveyor-plan-savings-card strong.is-neutral {
+    color: #d6e3ea;
+}
+
+.conveyor-plan-savings-note {
+    color: #aac9d8;
+    font-size: 9px;
+    line-height: 1.35;
+    margin: 9px 0 0;
+}
+
+.conveyor-plan-step-heading {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.conveyor-plan-step-number {
+    color: #2878a6;
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    margin-bottom: 4px;
+}
+
+.conveyor-plan-step-heading h3 {
+    color: #19334b;
+    font-size: 21px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.conveyor-plan-step-heading p {
+    color: #6d7d8d;
+    font-size: 13px;
+    margin: 6px 0 0;
+}
+
+.conveyor-plan-available,
+.conveyor-plan-column-count {
+    background: #eff5fa;
+    border: 1px solid #d7e5ef;
+    border-radius: 5px;
+    min-width: 130px;
+    padding: 9px 12px;
+    text-align: right;
+}
+
+.conveyor-plan-available strong,
+.conveyor-plan-column-count strong {
+    color: #185f8d;
+    display: block;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.conveyor-plan-available span,
+.conveyor-plan-column-count span {
+    color: #718294;
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 4px;
+    text-transform: uppercase;
+}
+
+.conveyor-plan-field-card,
+.conveyor-plan-output-fieldset,
+.conveyor-plan-column-group {
+    background: #f8fafc;
+    border: 1px solid #dce4eb;
+    border-radius: 6px;
+    min-height: 100%;
+    padding: 18px;
+}
+
+.conveyor-plan-field-card > label,
+.conveyor-plan-field-card legend,
+.conveyor-plan-output-fieldset legend,
+.conveyor-plan-column-group legend {
+    border: 0;
+    color: #284157;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 12px;
+    padding: 0;
+    width: auto;
+}
+
+.conveyor-plan-level-fieldset > p {
+    color: #778696;
+    font-size: 12px;
+    margin: -5px 0 13px;
+}
+
+.conveyor-plan-quantity-input .form-control {
+    border-color: #aebdcc;
+    box-shadow: none;
+    color: #18354d;
+    font-size: 24px;
+    font-weight: 700;
+    height: 50px;
+    text-align: center;
+}
+
+.conveyor-plan-quantity-input .input-group-addon {
+    background: #eef3f7;
+    border-color: #aebdcc;
+    color: #566b7e;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.conveyor-plan-field-card .help-block {
+    color: #758596;
+    font-size: 11px;
+    line-height: 1.4;
+    margin: 10px 0 12px;
+}
+
+.conveyor-plan-quick-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.conveyor-plan-quick-values .btn {
+    border-color: #bac8d4;
+    color: #35536b;
+    font-weight: 700;
+}
+
+.conveyor-plan-level-options {
+    display: grid;
+    gap: 9px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.conveyor-plan-level-option {
+    cursor: pointer;
+    display: block;
+    margin: 0;
+    position: relative;
+}
+
+.conveyor-plan-level-option input {
+    opacity: 0;
+    position: absolute;
+}
+
+.conveyor-plan-level-option span {
+    background: #ffffff;
+    border: 1px solid #cbd6e0;
+    border-radius: 5px;
+    display: block;
+    min-height: 82px;
+    padding: 14px 12px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.conveyor-plan-level-option strong {
+    color: #274259;
+    display: block;
+    font-size: 15px;
+}
+
+.conveyor-plan-level-option small {
+    color: #728294;
+    display: block;
+    font-size: 10px;
+    line-height: 1.35;
+    margin-top: 6px;
+}
+
+.conveyor-plan-level-option input:checked + span {
+    background: #eef7fc;
+    border-color: #3483b3;
+    box-shadow: inset 0 0 0 1px #3483b3;
+}
+
+.conveyor-plan-level-option input:focus + span,
+.conveyor-plan-output-option input:focus + span {
+    outline: 3px solid #7db8f5;
+    outline-offset: 2px;
+}
+
+.conveyor-plan-workload-summary {
+    border: 1px solid #dce4eb;
+    border-radius: 6px;
+    margin-top: 18px;
+    overflow: hidden;
+}
+
+.conveyor-plan-empty-summary {
+    color: #728294;
+    padding: 24px;
+    text-align: center;
+}
+
+.conveyor-plan-empty-summary i {
+    color: #91a4b6;
+    margin-right: 7px;
+}
+
+.conveyor-plan-workload-totals {
+    background: #edf3f8;
+    border-bottom: 1px solid #dce4eb;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.conveyor-plan-workload-totals > div {
+    border-right: 1px solid #d6e0e8;
+    padding: 13px 18px;
+}
+
+.conveyor-plan-workload-totals > div:last-child {
+    border-right: 0;
+}
+
+.conveyor-plan-workload-totals span {
+    color: #6d7e8f;
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.conveyor-plan-workload-totals strong {
+    color: #203d55;
+    display: block;
+    font-size: 21px;
+    margin-top: 2px;
+}
+
+.conveyor-plan-workload-totals .plan-count-out strong {
+    color: #b34d35;
+}
+
+.conveyor-plan-workload-totals .plan-count-in strong {
+    color: #25805b;
+}
+
+.conveyor-plan-level-table {
+    margin: 0;
+}
+
+.conveyor-plan-level-table thead th {
+    background: #ffffff;
+    border-bottom: 1px solid #dce4eb;
+    color: #6b7b8a;
+    font-size: 10px;
+    padding: 10px 14px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.conveyor-plan-level-table tbody td {
+    border-top-color: #edf1f4;
+    color: #42596c;
+    font-size: 12px;
+    padding: 10px 14px;
+    text-align: center;
+}
+
+.conveyor-plan-output-fieldset {
+    background: transparent;
+    border: 0;
+    padding: 0;
+}
+
+.conveyor-plan-output-option {
+    cursor: pointer;
+    display: block;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.conveyor-plan-output-option input {
+    opacity: 0;
+    position: absolute;
+}
+
+.conveyor-plan-output-card {
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #d5dee7;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    min-height: 175px;
+    padding: 24px 14px 18px;
+    text-align: center;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.conveyor-plan-output-card i {
+    color: #347ba6;
+    font-size: 38px;
+    margin-bottom: 14px;
+}
+
+.conveyor-plan-output-card strong {
+    color: #233f56;
+    font-size: 16px;
+}
+
+.conveyor-plan-output-card small {
+    color: #7a8997;
+    font-size: 11px;
+    margin-top: 6px;
+}
+
+.conveyor-plan-output-option input:checked + .conveyor-plan-output-card {
+    border-color: #267bac;
+    box-shadow: 0 0 0 2px #267bac, 0 8px 18px rgba(23, 73, 108, 0.12);
+    transform: translateY(-2px);
+}
+
+.conveyor-plan-presets {
+    border-bottom: 1px solid #e1e7ed;
+    margin-bottom: 18px;
+    padding-bottom: 15px;
+}
+
+.conveyor-plan-presets .btn {
+    font-weight: 700;
+    margin-right: 6px;
+}
+
+.conveyor-plan-column-groups {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.conveyor-plan-column-groups > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.conveyor-plan-column-group {
+    margin-bottom: 14px;
+    min-height: auto;
+    width: 100%;
+}
+
+.conveyor-plan-column-group label {
+    align-items: center;
+    color: #435a6d;
+    display: flex;
+    font-size: 12px;
+    font-weight: 500;
+    gap: 8px;
+    margin: 0;
+    min-height: 30px;
+}
+
+.conveyor-plan-column-group input {
+    accent-color: #176b9e;
+    height: 16px;
+    margin: 0;
+    width: 16px;
+}
+
+.conveyor-plan-column-group input[disabled] {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.conveyor-plan-tracking-group {
+    background: #f0f7f4;
+    border-color: #cfe1d8;
+}
+
+.conveyor-plan-review-card {
+    background: #f3f6f9;
+    border: 1px solid #dbe4eb;
+    border-radius: 5px;
+    margin-bottom: 12px;
+    min-height: 86px;
+    padding: 14px;
+}
+
+.conveyor-plan-review-card span {
+    color: #718192;
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.conveyor-plan-review-card strong {
+    color: #203d55;
+    display: block;
+    font-size: 21px;
+    line-height: 1.2;
+    margin-top: 7px;
+}
+
+.conveyor-plan-review-card.review-out strong {
+    color: #b34d35;
+}
+
+.conveyor-plan-review-card.review-in strong {
+    color: #25805b;
+}
+
+.conveyor-plan-review-meta {
+    color: #536a7d;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 11px;
+    gap: 8px 20px;
+    margin: 4px 0 18px;
+}
+
+.conveyor-plan-instruction {
+    align-items: flex-start;
+    background: #edf5fa;
+    border-left: 4px solid #287cae;
+    border-radius: 4px;
+    color: #456076;
+    display: flex;
+    font-size: 12px;
+    gap: 10px;
+    line-height: 1.45;
+    margin-bottom: 20px;
+    padding: 12px 14px;
+}
+
+.conveyor-plan-instruction i {
+    color: #287cae;
+    font-size: 17px;
+    margin-top: 1px;
+}
+
+.conveyor-plan-preview-heading {
+    align-items: baseline;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.conveyor-plan-preview-heading h4 {
+    color: #284157;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.conveyor-plan-preview-heading span {
+    color: #81909d;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.conveyor-plan-preview {
+    border: 1px solid #dce4eb;
+    border-radius: 5px;
+    max-height: 285px;
+    overflow: auto;
+}
+
+.conveyor-plan-preview table {
+    margin: 0;
+    min-width: 900px;
+}
+
+.conveyor-plan-preview th {
+    background: #edf2f6;
+    color: #52687a;
+    font-size: 9px;
+    position: sticky;
+    text-transform: uppercase;
+    top: 0;
+    white-space: nowrap;
+    z-index: 2;
+}
+
+.conveyor-plan-preview td {
+    color: #40586b;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.conveyor-plan-footer {
+    background: #f6f8fa;
+    border-top: 1px solid #dce4eb;
+    padding: 14px 22px;
+}
+
+.conveyor-plan-footer .btn {
+    font-weight: 700;
+    min-width: 94px;
+}
+
+.conveyor-plan-footer .btn-link {
+    color: #66798b;
+    min-width: auto;
+}
+
+.conveyor-plan-footer .btn-success {
+    background: #267c5b;
+    border-color: #267c5b;
+}
+
+.conveyor-plan-export-host {
+    left: -12000px;
+    position: fixed;
+    top: 0;
+    width: 1400px;
+}
+
+.conveyor-reslot-page button:focus,
+.conveyor-reslot-page a:focus,
+.conveyor-reslot-page select:focus,
+.conveyor-reslot-page input:focus {
+    outline: 3px solid #7db8f5 !important;
+    outline-offset: 2px;
+}
+
+@media (max-width: 991px) {
+    .conveyor-dashboard-kpi-grid,
+    .conveyor-dashboard-impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .conveyor-dashboard-level-card {
+        margin-bottom: 14px;
+    }
+
+    .conveyor-plan-savings-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .conveyor-hero-meta {
+        border-left: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+        margin-top: 18px;
+        min-height: auto;
+        padding-left: 15px;
+        padding-top: 14px;
+        text-align: left;
+    }
+
+    .conveyor-total-card,
+    .conveyor-level-card {
+        margin-bottom: 14px;
+    }
+
+    .conveyor-hero-actions {
+        justify-content: flex-start;
+    }
+
+    .conveyor-plan-level-options {
+        grid-template-columns: 1fr;
+    }
+
+    .conveyor-plan-level-option span {
+        min-height: 64px;
+    }
+}
+
+@media (max-width: 767px) {
+    .conveyor-dashboard-body {
+        padding: 15px;
+    }
+
+    .conveyor-dashboard-kpi-grid,
+    .conveyor-dashboard-impact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .conveyor-dashboard-impact-heading,
+    .conveyor-dashboard-level-heading {
+        display: block;
+    }
+
+    .conveyor-dashboard-impact-scope {
+        display: inline-block;
+        margin-top: 8px;
+    }
+
+    .conveyor-dashboard-impact-baseline span,
+    .conveyor-dashboard-level-heading small {
+        display: block;
+        margin-top: 6px;
+    }
+
+    .conveyor-plan-savings {
+        border-radius: 0;
+        margin-left: -15px;
+        margin-right: -15px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .conveyor-plan-savings-heading {
+        display: block;
+    }
+
+    .conveyor-plan-savings-scope {
+        display: inline-block;
+        margin-top: 8px;
+    }
+
+    .conveyor-plan-savings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .conveyor-reslot-page {
+        padding-top: 58px;
+    }
+
+    .conveyor-hero {
+        border-radius: 0;
+        margin-left: -15px;
+        margin-right: -15px;
+        padding: 22px 18px;
+    }
+
+    .conveyor-hero h1 {
+        font-size: 23px;
+    }
+
+    .conveyor-filter-bar,
+    .conveyor-report-heading {
+        align-items: stretch;
+        display: block;
+    }
+
+    .conveyor-visible-count {
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .conveyor-filter-bar .btn-group {
+        display: flex;
+        width: 100%;
+    }
+
+    .conveyor-filter-bar .btn-group .btn {
+        flex: 1;
+    }
+
+    #conveyor-level-filter {
+        width: 100%;
+    }
+
+    .conveyor-dashboard-heading {
+        align-items: stretch;
+        display: block;
+    }
+
+    .conveyor-dashboard-actions {
+        margin-top: 14px;
+        text-align: left;
+    }
+
+    .conveyor-dashboard-actions .btn {
+        display: block;
+        margin: 10px 0 0;
+        width: 100%;
+    }
+
+    .conveyor-plan-modal .modal-dialog {
+        margin: 0;
+        max-width: none;
+        min-height: 100%;
+        width: 100%;
+    }
+
+    .conveyor-plan-modal .modal-content {
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    .conveyor-plan-header {
+        padding: 18px 17px;
+    }
+
+    .conveyor-plan-header h2 {
+        font-size: 21px;
+        padding-right: 30px;
+    }
+
+    .conveyor-plan-progress {
+        padding: 0 12px;
+    }
+
+    .conveyor-plan-progress li {
+        justify-content: center;
+        min-height: 52px;
+    }
+
+    .conveyor-plan-progress li strong,
+    .conveyor-plan-progress li:after {
+        display: none;
+    }
+
+    .conveyor-plan-body {
+        max-height: none;
+        min-height: calc(100vh - 220px);
+        padding: 20px 15px;
+    }
+
+    .conveyor-plan-step-heading {
+        display: block;
+    }
+
+    .conveyor-plan-available,
+    .conveyor-plan-column-count {
+        margin-top: 12px;
+        text-align: left;
+        width: 150px;
+    }
+
+    .conveyor-plan-field-card {
+        margin-bottom: 14px;
+    }
+
+    .conveyor-plan-level-options {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .conveyor-plan-level-option span {
+        min-height: 82px;
+    }
+
+    .conveyor-plan-workload-totals {
+        grid-template-columns: 1fr;
+    }
+
+    .conveyor-plan-workload-totals > div {
+        border-bottom: 1px solid #d6e0e8;
+        border-right: 0;
+    }
+
+    .conveyor-plan-workload-totals > div:last-child {
+        border-bottom: 0;
+    }
+
+    .conveyor-plan-column-groups {
+        display: block;
+    }
+
+    .conveyor-plan-footer {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        justify-content: flex-end;
+    }
+
+    .conveyor-plan-footer:before,
+    .conveyor-plan-footer:after {
+        display: none;
+    }
+
+    .conveyor-plan-footer .btn {
+        float: none !important;
+        margin: 0;
+    }
+
+    .conveyor-plan-footer .btn-link {
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 520px) {
+    .conveyor-hero-actions .btn {
+        width: 100%;
+    }
+
+    .conveyor-plan-level-options {
+        grid-template-columns: 1fr;
+    }
+
+    .conveyor-plan-level-option span {
+        min-height: 60px;
+    }
+
+    .conveyor-plan-quick-values .btn {
+        flex: 1 1 42%;
+    }
+
+    .conveyor-plan-presets .btn {
+        display: block;
+        margin: 0 0 7px;
+        width: 100%;
+    }
+
+    .conveyor-plan-footer .btn {
+        flex: 1;
+        min-width: 80px;
+    }
+
+    .conveyor-plan-footer .btn-link {
+        flex: 0 0 auto;
+    }
+}

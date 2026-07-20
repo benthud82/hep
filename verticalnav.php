@@ -32,6 +32,7 @@ $totalmoduleerrors = $maperrorcount;  //+add+ $slotmastererror once programmed
                     </div>
                     <div class="col-sm-6">
                         <h4 style="cursor: default; margin: 3px 0px 3px 3px;">Re-slot Reports</h4>
+                        <li><a href="conveyor_reslot.php">Conveyor Reslot Plan</a></li>
                         <li><a href="optimalbay.php">Optimal Bay</a></li> 
                         <!--<li><a href="casehightolow.php">Case High to Low</a></li>--> 
                         <!--<li><a href="buildingswap.php">Building Swap (Sparks)</a></li>--> 

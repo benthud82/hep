@@ -7,7 +7,11 @@ if (isset($_SESSION['MYUSER'])) {
     $whssql->execute();
     $whssqlarray = $whssql->fetchAll(pdo::FETCH_ASSOC);
 
-    $var_whse = $whssqlarray[0]['slottingDB_users_PRIMDC'];
+    // Local/test users may not have a slottingdb_users row. The badge query is
+    // warehouse-independent, so avoid emitting a page-level warning in that case.
+    $var_whse = isset($whssqlarray[0]['slottingDB_users_PRIMDC'])
+        ? $whssqlarray[0]['slottingDB_users_PRIMDC']
+        : null;
 
     $maperror = $conn1->prepare("SELECT 
                                                             COUNT(*) AS maperrorcount
