@@ -1,0 +1,779 @@
+:root {
+    --dashboard-ink: #122033;
+    --dashboard-muted: #68798b;
+    --dashboard-line: #dbe4ea;
+    --dashboard-surface: #ffffff;
+    --dashboard-canvas: #f1f5f7;
+    --dashboard-navy: #0b3558;
+    --dashboard-blue: #176c9b;
+    --dashboard-teal: #087f78;
+    --dashboard-green: #287c5a;
+    --dashboard-amber: #a76514;
+}
+
+.slotting-dashboard-page {
+    background: var(--dashboard-canvas);
+    color: var(--dashboard-ink);
+}
+
+.slotting-dashboard-shell {
+    min-height: 100vh;
+    padding: 78px 28px 44px;
+}
+
+.slotting-dashboard-hero {
+    align-items: stretch;
+    background:
+        radial-gradient(circle at 78% 15%, rgba(71, 191, 180, .26), transparent 30%),
+        linear-gradient(125deg, #082c4a 0%, #0e4f76 58%, #08756f 100%);
+    border-radius: 16px;
+    box-shadow: 0 18px 42px rgba(15, 51, 79, .2);
+    color: #fff;
+    display: grid;
+    gap: 36px;
+    grid-template-columns: minmax(0, 1.65fr) minmax(310px, .75fr);
+    overflow: hidden;
+    padding: 38px 42px;
+    position: relative;
+}
+
+.slotting-dashboard-hero:after {
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 50%;
+    content: '';
+    height: 280px;
+    position: absolute;
+    right: -95px;
+    top: -135px;
+    width: 280px;
+}
+
+.slotting-dashboard-hero-copy,
+.slotting-dashboard-hero-signal {
+    position: relative;
+    z-index: 1;
+}
+
+.slotting-dashboard-eyebrow,
+.slotting-dashboard-section-heading > div > span,
+.slotting-module-kicker {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+}
+
+.slotting-dashboard-eyebrow {
+    color: #9fe1dd;
+}
+
+.slotting-dashboard-hero h1 {
+    font-size: 37px;
+    font-weight: 600;
+    letter-spacing: -.7px;
+    line-height: 1.12;
+    margin: 10px 0 12px;
+    max-width: 760px;
+}
+
+.slotting-dashboard-hero-copy > p {
+    color: rgba(255, 255, 255, .78);
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 780px;
+}
+
+.slotting-dashboard-hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 25px;
+}
+
+.slotting-dashboard-hero-meta span {
+    color: rgba(255, 255, 255, .72);
+    font-size: 12px;
+}
+
+.slotting-dashboard-hero-meta i {
+    color: #9fe1dd;
+    margin-right: 6px;
+}
+
+.slotting-dashboard-hero-meta strong {
+    color: #fff;
+}
+
+.slotting-dashboard-hero-signal {
+    align-self: center;
+    background: rgba(6, 34, 54, .42);
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.slotting-dashboard-status {
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, .13);
+    display: flex;
+    gap: 11px;
+    padding-bottom: 17px;
+}
+
+.slotting-dashboard-status-dot {
+    background: #f3bd56;
+    border: 4px solid rgba(243, 189, 86, .16);
+    border-radius: 50%;
+    box-sizing: content-box;
+    display: block;
+    height: 9px;
+    width: 9px;
+}
+
+.slotting-dashboard-status[data-dashboard-status="ready"] .slotting-dashboard-status-dot {
+    background: #62d69b;
+    border-color: rgba(98, 214, 155, .16);
+}
+
+.slotting-dashboard-status[data-dashboard-status="warning"] .slotting-dashboard-status-dot {
+    background: #f3bd56;
+    border-color: rgba(243, 189, 86, .16);
+}
+
+.slotting-dashboard-status small,
+.slotting-dashboard-status strong {
+    display: block;
+}
+
+.slotting-dashboard-status small {
+    color: rgba(255, 255, 255, .55);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+}
+
+.slotting-dashboard-status strong {
+    font-size: 14px;
+    margin-top: 3px;
+}
+
+.slotting-dashboard-hero-stats {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 17px;
+}
+
+.slotting-dashboard-hero-stats div + div {
+    border-left: 1px solid rgba(255, 255, 255, .13);
+    padding-left: 14px;
+}
+
+.slotting-dashboard-hero-stats strong,
+.slotting-dashboard-hero-stats span {
+    display: block;
+}
+
+.slotting-dashboard-hero-stats strong {
+    font-size: 27px;
+    font-weight: 600;
+}
+
+.slotting-dashboard-hero-stats span {
+    color: rgba(255, 255, 255, .62);
+    font-size: 10px;
+    line-height: 1.3;
+    margin-top: 2px;
+    text-transform: uppercase;
+}
+
+.slotting-dashboard-section-heading {
+    align-items: end;
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+    margin: 32px 2px 17px;
+}
+
+.slotting-dashboard-section-heading > div > span {
+    color: var(--dashboard-teal);
+}
+
+.slotting-dashboard-section-heading h2 {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -.25px;
+    margin: 5px 0 0;
+}
+
+.slotting-dashboard-section-heading p {
+    color: var(--dashboard-muted);
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 510px;
+    text-align: right;
+}
+
+.slotting-dashboard-module-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.slotting-module-card {
+    background: var(--dashboard-surface);
+    border: 1px solid var(--dashboard-line);
+    border-radius: 13px;
+    box-shadow: 0 8px 24px rgba(24, 49, 69, .07);
+    display: flex;
+    flex-direction: column;
+    min-height: 470px;
+    overflow: hidden;
+    padding: 27px 28px 24px;
+    position: relative;
+    transition: box-shadow .2s ease, transform .2s ease;
+}
+
+.slotting-module-card:hover {
+    box-shadow: 0 14px 32px rgba(24, 49, 69, .11);
+    transform: translateY(-2px);
+}
+
+.slotting-module-accent {
+    background: linear-gradient(90deg, #1676a5, #45a8c2);
+    height: 5px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.slotting-module-replen .slotting-module-accent {
+    background: linear-gradient(90deg, #0b7974, #4daf7e);
+}
+
+.slotting-module-header {
+    align-items: flex-start;
+    display: grid;
+    gap: 15px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.slotting-module-icon {
+    align-items: center;
+    background: #e7f2f8;
+    border-radius: 10px;
+    color: var(--dashboard-blue);
+    display: flex;
+    font-size: 21px;
+    height: 46px;
+    justify-content: center;
+    width: 46px;
+}
+
+.slotting-module-replen .slotting-module-icon {
+    background: #e4f3ed;
+    color: var(--dashboard-teal);
+}
+
+.slotting-module-kicker {
+    color: var(--dashboard-blue);
+    font-size: 9px;
+    letter-spacing: 1.2px;
+}
+
+.slotting-module-replen .slotting-module-kicker {
+    color: var(--dashboard-teal);
+}
+
+.slotting-module-header h2 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.2px;
+    margin: 4px 0;
+}
+
+.slotting-module-header p {
+    color: var(--dashboard-muted);
+    font-size: 12px;
+    line-height: 1.45;
+    margin: 0;
+}
+
+.slotting-module-model {
+    color: var(--dashboard-muted);
+    font-size: 9px;
+    text-align: right;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.slotting-module-model strong {
+    color: var(--dashboard-ink);
+    display: block;
+    font-size: 11px;
+    margin-top: 3px;
+    text-transform: none;
+}
+
+.slotting-module-primary-stat {
+    align-items: flex-end;
+    background: linear-gradient(115deg, #f3f8fb, #eef6f8);
+    border: 1px solid #dce9ef;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 0 14px;
+    min-height: 112px;
+    padding: 18px 20px;
+}
+
+.slotting-module-replen .slotting-module-primary-stat {
+    background: linear-gradient(115deg, #f0f8f5, #edf7f3);
+    border-color: #d8ebe3;
+}
+
+.slotting-module-primary-stat span,
+.slotting-module-primary-stat strong {
+    display: block;
+}
+
+.slotting-module-primary-stat span {
+    color: var(--dashboard-muted);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .9px;
+}
+
+.slotting-module-primary-stat > div > strong {
+    color: var(--dashboard-navy);
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1;
+    margin-top: 9px;
+}
+
+.slotting-module-replen .slotting-module-primary-stat > div > strong {
+    color: #086f69;
+}
+
+.slotting-module-primary-stat > small {
+    color: var(--dashboard-muted);
+    font-size: 10px;
+    line-height: 1.5;
+    max-width: 170px;
+    text-align: right;
+}
+
+.slotting-module-primary-stat > small strong {
+    color: var(--dashboard-ink);
+    display: inline;
+    font-size: 14px;
+}
+
+.slotting-module-primary-stat b {
+    color: #aebbc4;
+    margin: 0 3px;
+}
+
+.slotting-module-stat-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.slotting-module-stat-grid > div {
+    border: 1px solid #e3e9ee;
+    border-radius: 8px;
+    min-height: 100px;
+    padding: 13px 14px;
+}
+
+.slotting-module-stat-grid span,
+.slotting-module-stat-grid strong,
+.slotting-module-stat-grid small {
+    display: block;
+}
+
+.slotting-module-stat-grid > div > span {
+    color: var(--dashboard-muted);
+    font-size: 9px;
+    font-weight: 700;
+    min-height: 27px;
+    text-transform: uppercase;
+}
+
+.slotting-module-stat-grid > div > strong {
+    color: var(--dashboard-ink);
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.slotting-module-stat-grid small {
+    color: #8795a2;
+    font-size: 9px;
+    margin-top: 5px;
+}
+
+.slotting-module-stat-grid small span {
+    display: inline;
+}
+
+.slotting-module-health {
+    align-items: center;
+    background: #f2f6f8;
+    border-radius: 7px;
+    color: var(--dashboard-muted);
+    display: flex;
+    font-size: 11px;
+    gap: 8px;
+    margin-top: 13px;
+    padding: 9px 11px;
+}
+
+.slotting-module-health[data-health="ready"] {
+    background: #e5f4eb;
+    color: #226b4d;
+}
+
+.slotting-module-health[data-health="warning"] {
+    background: #fff3dc;
+    color: #855614;
+}
+
+.slotting-module-error {
+    background: #fae6e6;
+    border-radius: 7px;
+    color: #923d3d;
+    font-size: 11px;
+    margin-top: 13px;
+    padding: 9px 11px;
+}
+
+.slotting-module-footer {
+    align-items: center;
+    border-top: 1px solid #e5ebef;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 19px;
+}
+
+.slotting-module-footer p {
+    color: var(--dashboard-muted);
+    font-size: 10px;
+    line-height: 1.45;
+    margin: 0;
+    max-width: 280px;
+}
+
+.slotting-module-footer p i {
+    color: var(--dashboard-teal);
+    margin-right: 4px;
+}
+
+.slotting-module-button {
+    background: var(--dashboard-navy);
+    border: 0;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 10px 14px;
+    white-space: nowrap;
+}
+
+.slotting-module-replen .slotting-module-button {
+    background: var(--dashboard-teal);
+}
+
+.slotting-module-button:hover,
+.slotting-module-button:focus {
+    color: #fff;
+    opacity: .9;
+}
+
+.slotting-module-button i {
+    margin-left: 6px;
+}
+
+.slotting-dashboard-footnote {
+    color: var(--dashboard-muted);
+    font-size: 10px;
+    margin: 17px 3px 0;
+}
+
+.slotting-dashboard-footnote i {
+    color: var(--dashboard-blue);
+    margin-right: 4px;
+}
+
+@media (max-width: 1180px) {
+    .slotting-dashboard-hero {
+        grid-template-columns: minmax(0, 1.35fr) minmax(290px, .75fr);
+    }
+
+    .slotting-dashboard-module-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .slotting-module-card {
+        min-height: 450px;
+    }
+}
+
+@media (max-width: 767px) {
+    .slotting-dashboard-shell {
+        padding: 65px 10px 28px;
+    }
+
+    .slotting-dashboard-hero {
+        display: block;
+        padding: 28px 22px;
+    }
+
+    .slotting-dashboard-hero h1 {
+        font-size: 30px;
+    }
+
+    .slotting-dashboard-hero-signal {
+        margin-top: 24px;
+    }
+
+    .slotting-dashboard-section-heading,
+    .slotting-module-footer {
+        align-items: flex-start;
+        display: block;
+    }
+
+    .slotting-dashboard-section-heading p {
+        margin-top: 10px;
+        text-align: left;
+    }
+
+    .slotting-module-card {
+        min-height: 0;
+        padding: 24px 18px 20px;
+    }
+
+    .slotting-module-header {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .slotting-module-model {
+        grid-column: 2;
+        text-align: left;
+    }
+
+    .slotting-module-primary-stat {
+        align-items: flex-start;
+        display: block;
+    }
+
+    .slotting-module-primary-stat > small {
+        display: block;
+        margin-top: 12px;
+        max-width: none;
+        text-align: left;
+    }
+
+    .slotting-module-stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .slotting-module-stat-grid > div {
+        min-height: 86px;
+    }
+
+    .slotting-module-footer .btn {
+        display: block;
+        margin-top: 15px;
+        width: 100%;
+    }
+}
+
+.slotting-dashboard-history-heading {
+    border-top: 1px solid var(--dashboard-line);
+    margin-top: 39px;
+    padding-top: 32px;
+}
+
+.slotting-history-panel {
+    background: var(--dashboard-surface);
+    border: 1px solid var(--dashboard-line);
+    border-radius: 12px;
+    box-shadow: 0 7px 22px rgba(24, 49, 69, .06);
+    margin: 0 0 20px;
+    overflow: hidden;
+}
+
+.slotting-history-panel-heading {
+    align-items: center;
+    background: linear-gradient(100deg, #f8fbfc, #f2f7f8);
+    border-bottom: 1px solid var(--dashboard-line);
+    display: flex;
+    justify-content: space-between;
+    min-height: 74px;
+    padding: 15px 20px;
+}
+
+.slotting-history-panel-heading span {
+    color: var(--dashboard-teal);
+    display: block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.25px;
+}
+
+.slotting-history-panel-heading h3 {
+    color: var(--dashboard-ink);
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -.15px;
+    margin: 4px 0 0;
+}
+
+.slotting-history-panel-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.slotting-history-icon {
+    align-items: center;
+    background: #fff;
+    border: 1px solid #d6e0e6;
+    border-radius: 6px;
+    color: #607484;
+    display: inline-flex;
+    height: 31px;
+    justify-content: center;
+    padding: 0;
+    transition: background .15s ease, color .15s ease;
+    width: 31px;
+}
+
+.slotting-history-icon:hover,
+.slotting-history-icon:focus {
+    background: #e9f3f5;
+    color: var(--dashboard-teal);
+    outline: 0;
+}
+
+.slotting-history-panel-body {
+    background: #fff;
+    padding: 18px 20px 10px;
+}
+
+.slotting-history-chart-page {
+    width: 100%;
+}
+
+.slotting-history-guidance {
+    margin-bottom: 3px;
+}
+
+.slotting-history-guidance .alert {
+    border: 0;
+    border-radius: 7px;
+    font-size: 11px;
+    line-height: 1.45;
+    margin-bottom: 8px;
+    min-height: 46px;
+    padding: 14px 36px 11px 13px;
+}
+
+.slotting-history-guidance .alert > i {
+    margin-right: 6px;
+}
+
+.slotting-history-chart.dashboardstyle {
+    border: 0;
+    float: none;
+    height: 470px;
+    margin: 0;
+    min-height: 470px;
+    padding: 0;
+    width: 100%;
+    z-index: auto;
+}
+
+.slotting-history-error {
+    align-items: center;
+    color: #8a5a18;
+    display: flex;
+    font-size: 12px;
+    gap: 7px;
+    height: 100%;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.slotting-capacity-panel .slotting-history-panel-body {
+    padding: 28px 25px 20px;
+}
+
+.slotting-capacity-grid {
+    align-items: center;
+}
+
+.slotting-capacity-panel .metric {
+    background: #f7fafb;
+    border: 1px solid #e0e8ed;
+    border-radius: 10px;
+    padding: 19px 15px 9px;
+}
+
+.slotting-capacity-panel .metric svg {
+    display: block;
+    margin: 0 auto;
+    max-width: 360px;
+    width: 100%;
+}
+
+.slotting-capacity-panel .metric path {
+    fill: none;
+    stroke: #dde7eb;
+    stroke-width: 75;
+}
+
+.slotting-capacity-panel .metric.infogauge path.data-arc {
+    stroke: var(--dashboard-teal);
+}
+
+.slotting-capacity-panel .metric.infogauge text {
+    fill: var(--dashboard-navy);
+}
+
+@media (max-width: 767px) {
+    .slotting-dashboard-history-heading {
+        margin-top: 31px;
+        padding-top: 25px;
+    }
+
+    .slotting-history-panel-heading {
+        min-height: 66px;
+        padding: 13px 14px;
+    }
+
+    .slotting-history-panel-heading h3 {
+        font-size: 16px;
+    }
+
+    .slotting-history-panel-body {
+        padding: 12px 8px 5px;
+    }
+
+    .slotting-history-chart.dashboardstyle {
+        height: 400px;
+        min-height: 400px;
+    }
+
+    .slotting-capacity-panel .metric {
+        margin-bottom: 12px;
+    }
+}
